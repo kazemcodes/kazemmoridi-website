@@ -249,14 +249,15 @@ html[dir="rtl"] .section-header h2 { letter-spacing: 0; }
 @media (min-width: 768px) { .orbit-center { width: 64px; height: 64px; font-size: 20px; } }
 .orbit-item {
   position: absolute; top: 50%; left: 50%;
-  width: 64px; height: 28px; margin: -14px 0 0 -32px;
+  width: 80px; height: 30px; margin: -15px 0 0 -40px;
   display: flex; align-items: center; justify-content: center;
   background: var(--bg-card); border: 1.5px solid var(--border); border-radius: 16px;
-  font-size: 10px; font-weight: 600; color: var(--text-dim);
+  font-size: 9px; font-weight: 600; color: var(--text-dim);
   transform: rotate(calc(var(--i) * 45deg)) translateX(90px) rotate(calc(var(--i) * -45deg));
   transition: var(--transition); box-shadow: var(--shadow-xs);
+  padding: 0 4px;
 }
-@media (min-width: 768px) { .orbit-item { width: 72px; height: 30px; margin: -15px 0 0 -36px; font-size: 11px; transform: rotate(calc(var(--i) * 45deg)) translateX(110px) rotate(calc(var(--i) * -45deg)); } }
+@media (min-width: 768px) { .orbit-item { width: 90px; height: 32px; margin: -16px 0 0 -45px; font-size: 10px; transform: rotate(calc(var(--i) * 45deg)) translateX(110px) rotate(calc(var(--i) * -45deg)); } }
 .orbit-item:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-glow); }
 
 /* ===== PROJECTS ===== */
@@ -489,9 +490,14 @@ html[dir="rtl"] .timeline-content { padding-right: 12px; }
 .back-to-top { font-size: 12px; color: var(--accent); font-weight: 600; transition: var(--transition); }
 
 /* ===== RTL ===== */
-html[dir="rtl"] .tech-orbit { transform: scaleX(-1); }
-html[dir="rtl"] .tech-orbit .orbit-item { transform: rotate(calc(var(--i) * 45deg)) translateX(90px) rotate(calc(var(--i) * -45deg)); }
-@media (min-width: 768px) { html[dir="rtl"] .tech-orbit .orbit-item { transform: rotate(calc(var(--i) * 45deg)) translateX(110px) rotate(calc(var(--i) * -45deg)); } }
+html[dir="rtl"] .tech-orbit .orbit-item {
+  transform: rotate(calc(var(--i) * -45deg)) translateX(90px) rotate(calc(var(--i) * 45deg));
+}
+@media (min-width: 768px) {
+  html[dir="rtl"] .tech-orbit .orbit-item {
+    transform: rotate(calc(var(--i) * -45deg)) translateX(110px) rotate(calc(var(--i) * 45deg));
+  }
+}
 
 /* ===== TOUCH ===== */
 a, button, .btn, .contact-card, .template-item, .project-card, .ecosystem-card, .skill-tags span {
