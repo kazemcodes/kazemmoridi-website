@@ -37,7 +37,7 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
 
-document.querySelectorAll('.project-card, .timeline-item, .skill-category, .contact-card, .ecosystem-card, .template-item, .activity-card, .spotlight-stat-card').forEach(el => {
+document.querySelectorAll('.project-card, .service-card, .pipeline-card, .process-step, .timeline-item, .skill-category, .contact-card, .ecosystem-card, .template-item, .activity-card, .spotlight-stat-card').forEach(el => {
   el.style.opacity = '0';
   el.style.transform = 'translateY(20px)';
   el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
@@ -74,3 +74,37 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     if (target) target.scrollIntoView({ behavior: 'smooth' });
   });
 });
+
+// Category Filter for Showcase
+const filterButtons = document.querySelectorAll('.filter-btn');
+const projectCards = document.querySelectorAll('.projects-grid .project-card');
+
+if (filterButtons.length > 0 && projectCards.length > 0) {
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter');
+      
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      projectCards.forEach(card => {
+        const categories = card.getAttribute('data-category') || '';
+        const match = filter === 'all' || categories.split(' ').includes(filter);
+
+        card.classList.remove('filter-fade-in');
+        
+        if (match) {
+          card.classList.remove('filter-hidden');
+          // Force layout reflow for animation restart
+          void card.offsetWidth;
+          card.classList.add('filter-fade-in');
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        } else {
+          card.classList.add('filter-hidden');
+        }
+      });
+    });
+  });
+}
+
