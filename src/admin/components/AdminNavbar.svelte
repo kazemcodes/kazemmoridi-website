@@ -1,5 +1,6 @@
 <script lang="ts">
   import { getDatabaseCredentials } from '../../services/db';
+  import { LogOut, ExternalLink, Settings as SettingsIcon } from 'lucide-svelte';
 
   export let activeTab: string = 'dashboard';
   export let onNavigate: (tab: string) => void;
@@ -31,13 +32,16 @@
 
   <div class="navbar-actions">
     <button class="nav-btn settings-btn" on:click={() => onNavigate('settings')}>
-      تنظیمات دیتابیس و استودیو
+      <SettingsIcon size={16} />
+      <span>تنظیمات استودیو</span>
     </button>
     <button class="nav-btn exit-btn" on:click={onExitAdmin} title="مشاهده سایت عمومی">
-      سایت عمومی ↗
+      <ExternalLink size={16} />
+      <span>سایت عمومی</span>
     </button>
     <button class="nav-btn logout-btn" on:click={onLogout} title="خروج امن از پنل مدیریت">
-      خروج از حساب 🚪
+      <LogOut size={16} />
+      <span>خروج از حساب</span>
     </button>
   </div>
 </header>

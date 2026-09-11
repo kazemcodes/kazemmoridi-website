@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import { getDatabase, type OfficialLetter, type StudioProfile } from '../../services/db';
   import { toPersianDigits } from '../../utils/persianDigits';
+  import { Printer, Edit3, ArrowRight } from 'lucide-svelte';
 
   export let letterId: string;
   export let onNavigate: (tab: string, param?: string) => void;
@@ -36,15 +37,18 @@
   <div class="screen-controls no-print">
     <div class="controls-left">
       <button class="btn btn-outline" on:click={() => onNavigate('letters')}>
-        &rarr; بازگشت به آرشیو نامه‌ها
+        <ArrowRight size={16} />
+        <span>بازگشت به آرشیو نامه‌ها</span>
       </button>
       <button class="btn btn-outline" on:click={() => onNavigate('letter-edit', letterId)}>
-        ✏️ ویرایش متن نامه
+        <Edit3 size={16} />
+        <span>ویرایش متن نامه</span>
       </button>
     </div>
     <div class="controls-right">
       <button class="btn btn-print" on:click={handlePrint}>
-        🖨️ چاپ سربرگ اداری A4 / خروجی PDF
+        <Printer size={16} />
+        <span>چاپ سربرگ اداری A4 / خروجی PDF</span>
       </button>
     </div>
   </div>

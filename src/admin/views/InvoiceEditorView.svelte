@@ -4,6 +4,8 @@
   import { getTodayPersianDate, generateInvoiceNumber } from '../../utils/persianDate';
   import { numberToPersianWords, formatPrice } from '../../utils/numberToWords';
   import { toPersianDigits } from '../../utils/persianDigits';
+  import { generateUUID, isValidUUID } from '../../utils/uuid';
+  import { Printer, FileCheck, FileClock, Trash2, Plus, ArrowRight, Save } from 'lucide-svelte';
 
   export let invoiceId: string | null = null;
   export let onNavigate: (tab: string, param?: string) => void;
@@ -13,7 +15,7 @@
   let saving = false;
 
   let invoice: Invoice = {
-    id: 'inv-' + Date.now(),
+    id: generateUUID(),
     invoiceNumber: generateInvoiceNumber('invoice'),
     type: 'invoice',
     title: '',
@@ -37,7 +39,7 @@
     terms: 'تسویه نهایی پس از تایید فاز اول کدنویسی.',
     items: [
       {
-        id: 'item-1',
+        id: generateUUID(),
         description: '',
         quantity: 1,
         unit: 'مورد',
@@ -93,7 +95,7 @@
     invoice.items = [
       ...invoice.items,
       {
-        id: 'item-' + Date.now(),
+        id: generateUUID(),
         description: '',
         quantity: 1,
         unit: 'مورد',
@@ -149,6 +151,14 @@
       return;
     }
 
+    // Ensure valid UUID
+    if (!isValidUUID(invoice.id)) {
+      invoice.id = generateUUID();
+    }
+    if (invoice.clientId && !isValidUUID(invoice.clientId)) {
+      invoice.clientId = undefined;
+    }
+
     saving = true;
     try {
       const db = getDatabase();
@@ -159,9 +169,10 @@
       } else {
         onNavigate('invoices');
       }
-    } catch (e) {
+    } catch (e: any) {
       console.error('Failed to save invoice', e);
-      alert('خطا در ذخیره فاکتور');
+      const errMsg = e?.message || e?.details || (typeof e === 'string' ? e : 'خطای برقراری ارتباط با پایگاه داده');
+      alert(`خطا در ذخیره فاکتور: ${errMsg}`);
     } finally {
       saving = false;
     }
@@ -176,13 +187,16 @@
     </div>
     <div class="header-actions">
       <button class="btn btn-outline" on:click={() => onNavigate('invoices')}>
-        انصراف و بازگشت
+        <ArrowRight size={16} />
+        <span>انصراف و بازگشت</span>
       </button>
       <button class="btn btn-secondary" disabled={saving} on:click={() => handleSave(true)}>
-        ذخیره و مشاهده نسخه چاپ 🖨️
+        <Printer size={16} />
+        <span>ذخیره و مشاهده نسخه چاپ</span>
       </button>
       <button class="btn btn-primary" disabled={saving} on:click={() => handleSave(false)}>
-        {saving ? 'در حال ذخیره...' : 'ذخیره فاکتور'}
+        <Save size={16} />
+        <span>{saving ? 'در حال ذخیره...' : 'ذخیره فاکتور'}</span>
       </button>
     </div>
   </div>
@@ -206,7 +220,10 @@
               class:selected={invoice.type === 'invoice'}
               on:click={() => handleTypeChange('invoice')}
             >
-              <strong>🧾 فاکتور فروش رسمی</strong>
+              <div class="type-btn-title">
+                <FileCheck size={18} />
+                <strong>فاکتور فروش رسمی</strong>
+              </div>
               <small>سند مالی نهایی خدمات تحویل‌شده</small>
             </button>
             <button
@@ -215,7 +232,10 @@
               class:selected={invoice.type === 'proforma'}
               on:click={() => handleTypeChange('proforma')}
             >
-              <strong>📋 پیش‌فاکتور (Proforma)</strong>
+              <div class="type-btn-title">
+                <FileClock size={18} />
+                <strong>پیش‌فاکتور (Proforma)</strong>
+              </div>
               <small>پیشنهاد قیمت و برآورد رسمی به کارفرما</small>
             </button>
           </div>
@@ -324,7 +344,8 @@
           <div class="card-header card-header-between">
             <h3>۳. اقلام کالا و خدمات</h3>
             <button type="button" class="btn-add-item" on:click={addItem}>
-              + افزودن ردیف خدمات جدید
+              <Plus size={15} />
+              <span>افزودن ردیف خدمات جدید</span>
             </button>
           </div>
 
@@ -349,7 +370,7 @@
                     <td>
                       <input
                         type="text"
-                        placeholder="شرح خدمات یا ماژول نرم‌افزاری..."
+                        placeholder="شرح خدمات، لایسنس، پشتیبانی..."
                         bind:value={item.description}
                       />
                     </td>
@@ -362,11 +383,7 @@
                       />
                     </td>
                     <td>
-                      <input
-                        type="text"
-                        placeholder="پروژه/ماژول"
-                        bind:value={item.unit}
-                      />
+                      <input type="text" bind:value={item.unit} />
                     </td>
                     <td>
                       <input
@@ -393,10 +410,11 @@
                       <button
                         type="button"
                         class="btn-del-item"
+                        title="حذف این ردیف"
                         disabled={invoice.items.length <= 1}
                         on:click={() => removeItem(index)}
                       >
-                        ✕
+                        <Trash2 size={15} />
                       </button>
                     </td>
                   </tr>
@@ -476,10 +494,12 @@
 
           <div class="sidebar-actions">
             <button class="btn btn-primary w-full" disabled={saving} on:click={() => handleSave(false)}>
-              {saving ? 'در حال ذخیره...' : 'ذخیره فاکتور'}
+              <Save size={16} />
+              <span>{saving ? 'در حال ذخیره...' : 'ذخیره فاکتور'}</span>
             </button>
             <button class="btn btn-secondary w-full" disabled={saving} on:click={() => handleSave(true)}>
-              ذخیره و پیش‌نمایش چاپ A4 🖨️
+              <Printer size={16} />
+              <span>ذخیره و پیش‌نمایش چاپ A4</span>
             </button>
           </div>
         </div>
@@ -522,6 +542,10 @@
   }
 
   .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     padding: 10px 18px;
     border-radius: 10px;
     font-size: 13.5px;
@@ -637,6 +661,13 @@
 
   .type-btn strong {
     font-size: 14px;
+    color: #1e293b;
+  }
+
+  .type-btn-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     color: #1e293b;
   }
 

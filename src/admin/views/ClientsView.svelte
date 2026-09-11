@@ -2,6 +2,8 @@
   import { onMount } from 'svelte';
   import { getDatabase, type Client } from '../../services/db';
   import { toPersianDigits } from '../../utils/persianDigits';
+  import { generateUUID, isValidUUID } from '../../utils/uuid';
+  import { Plus, Edit3, Trash2, Users, X, Save } from 'lucide-svelte';
 
   let clients: Client[] = [];
   let loading = true;
@@ -34,7 +36,7 @@
 
   function openCreateModal() {
     editingClient = {
-      id: 'client-' + Date.now(),
+      id: generateUUID(),
       name: '',
       company: '',
       phone: '',
@@ -58,15 +60,20 @@
       return;
     }
 
+    if (!isValidUUID(editingClient.id)) {
+      editingClient.id = generateUUID();
+    }
+
     try {
       const db = getDatabase();
       await db.saveClient(editingClient);
       await loadClients();
       showModal = false;
       alert('اطلاعات مشتری با موفقیت ذخیره شد.');
-    } catch (e) {
+    } catch (e: any) {
       console.error('Failed to save client', e);
-      alert('خطا در ذخیره مشتری');
+      const msg = e?.message || e?.details || 'خطا در ذخیره مشتری';
+      alert(`خطا در ذخیره مشتری: ${msg}`);
     }
   }
 
@@ -76,8 +83,9 @@
         const db = getDatabase();
         await db.deleteClient(id);
         clients = clients.filter(c => c.id !== id);
-      } catch (e) {
-        alert('خطا در حذف مشتری');
+      } catch (e: any) {
+        const msg = e?.message || 'خطا در حذف مشتری';
+        alert(`خطا در حذف مشتری: ${msg}`);
       }
     }
   }
@@ -91,7 +99,8 @@
     </div>
     <div class="header-actions">
       <button class="btn btn-primary" on:click={openCreateModal}>
-        + افزودن مشتری جدید
+        <Plus size={16} />
+        <span>افزودن مشتری جدید</span>
       </button>
     </div>
   </div>
@@ -101,9 +110,14 @@
       <div class="loading-state">در حال بارگذاری مشتریان...</div>
     {:else if clients.length === 0}
       <div class="empty-state">
-        <span class="empty-icon">👥</span>
+        <span class="empty-icon-box">
+          <Users size={48} />
+        </span>
         <p>هنوز اطلاعات هیچ مشتری‌ای ثبت نشده است.</p>
-        <button class="btn btn-primary" on:click={openCreateModal}>افزودن اولین مشتری</button>
+        <button class="btn btn-primary" on:click={openCreateModal}>
+          <Plus size={16} />
+          <span>افزودن اولین مشتری</span>
+        </button>
       </div>
     {:else}
       <table class="clients-table">
@@ -129,8 +143,13 @@
               <td class="address-cell">{cl.address || 'ثبت نشده'}</td>
               <td>
                 <div class="actions-group">
-                  <button class="btn-action edit" on:click={() => openEditModal(cl)}>✏️ ویرایش</button>
-                  <button class="btn-action delete" on:click={() => handleDeleteClient(cl.id, cl.name)}>🗑️</button>
+                  <button class="btn-action edit" on:click={() => openEditModal(cl)}>
+                    <Edit3 size={13} />
+                    <span>ویرایش</span>
+                  </button>
+                  <button class="btn-action delete" title="حذف مشتری" on:click={() => handleDeleteClient(cl.id, cl.name)}>
+                    <Trash2 size={14} />
+                  </button>
                 </div>
               </td>
             </tr>
@@ -146,14 +165,16 @@
     <div class="modal-card">
       <div class="modal-header">
         <h3>{editingClient.name ? 'ویرایش مشخصات مشتری' : 'ثبت مشتری جدید'}</h3>
-        <button class="btn-close" on:click={() => showModal = false}>✕</button>
+        <button class="btn-close" on:click={() => showModal = false}>
+          <X size={18} />
+        </button>
       </div>
 
       <div class="modal-body">
         <div class="inputs-row">
           <div class="input-field flex-1">
-            <label>نام و نام خانوادگی *</label>
-            <input type="text" placeholder="نام مدیر یا شخص" bind:value={editingClient.name} />
+            <label>نام و نام خانوادگی / مخاطب *</label>
+            <input type="text" placeholder="مثال: مهندس کاظم مریدی" bind:value={editingClient.name} required />
           </div>
           <div class="input-field flex-1">
             <label>نام شرکت یا برند</label>
@@ -195,7 +216,10 @@
 
       <div class="modal-footer">
         <button class="btn btn-outline" on:click={() => showModal = false}>انصراف</button>
-        <button class="btn btn-primary" on:click={handleSaveClient}>ذخیره اطلاعات مشتری</button>
+        <button class="btn btn-primary" on:click={handleSaveClient}>
+          <Save size={16} />
+          <span>ذخیره اطلاعات مشتری</span>
+        </button>
       </div>
     </div>
   {/if}
@@ -321,7 +345,13 @@
     gap: 12px;
   }
 
-  .empty-icon { font-size: 40px; }
+  .empty-icon-box {
+    color: var(--admin-text-muted);
+    opacity: 0.6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   /* Modal */
   .modal-backdrop {

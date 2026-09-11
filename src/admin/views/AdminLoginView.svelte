@@ -1,5 +1,6 @@
 <script lang="ts">
   import { AuthService } from '../../services/auth/auth.service';
+  import { AlertCircle, LogIn, Eye, EyeOff, ArrowRight, ShieldCheck } from 'lucide-svelte';
 
   export let onLoginSuccess: () => void;
   export let onExit: () => void;
@@ -41,7 +42,9 @@
   <div class="login-card animate-fade-in">
     <!-- Header -->
     <div class="login-header">
-      <div class="brand-badge">KM</div>
+      <div class="brand-badge">
+        <ShieldCheck size={28} />
+      </div>
       <h2>درگاه امن مدیریت استودیو مریدی</h2>
       <p>دسترسی به بخش امور مالی، صدور فاکتور و مکاتبات اداری نیازمند احراز هویت است.</p>
     </div>
@@ -49,7 +52,8 @@
     <!-- Error Alert -->
     {#if errorMsg}
       <div class="alert-error">
-        <span>⚠️ {errorMsg}</span>
+        <AlertCircle size={18} />
+        <span>{errorMsg}</span>
       </div>
     {/if}
 
@@ -76,7 +80,13 @@
             class="toggle-pass-btn"
             on:click={() => showPassword = !showPassword}
           >
-            {showPassword ? 'مخفی‌سازی' : 'نمایش'}
+            {#if showPassword}
+              <EyeOff size={14} />
+              <span>مخفی‌سازی</span>
+            {:else}
+              <Eye size={14} />
+              <span>نمایش</span>
+            {/if}
           </button>
         </div>
         <div class="password-input-wrapper">
@@ -94,15 +104,17 @@
 
       <button type="submit" class="btn-submit" disabled={submitting}>
         {#if submitting}
-          در حال بررسی و ورود امن...
+          <span>در حال بررسی و ورود امن...</span>
         {:else}
-          ورود به پنل مدیریت 🔓
+          <LogIn size={18} />
+          <span>ورود به پنل مدیریت</span>
         {/if}
       </button>
 
       <div class="login-footer">
         <button type="button" class="btn-exit" on:click={onExit}>
-          &rarr; بازگشت به وب‌سایت اصلی
+          <ArrowRight size={16} />
+          <span>بازگشت به وب‌سایت اصلی</span>
         </button>
       </div>
     </form>
@@ -179,6 +191,9 @@
     font-size: 12px;
     font-weight: 600;
     line-height: 1.5;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
   .login-form {
@@ -213,6 +228,9 @@
     font-weight: 600;
     cursor: pointer;
     font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
   }
 
   .form-group input {
@@ -246,6 +264,10 @@
     cursor: pointer;
     transition: background 0.2s ease;
     margin-top: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
   }
 
   .btn-submit:hover:not(:disabled) {
@@ -272,6 +294,9 @@
     cursor: pointer;
     font-family: inherit;
     transition: color 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
   }
 
   .btn-exit:hover {

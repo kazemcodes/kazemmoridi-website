@@ -1,5 +1,15 @@
 <script lang="ts">
   import { servicesData } from '../data/services';
+  import { ShoppingBag, Building2, Palette, Zap, Smartphone, ShieldCheck, ArrowUpRight } from 'lucide-svelte';
+
+  const iconMap: Record<string, any> = {
+    'ecommerce': ShoppingBag,
+    'custom-web-apps': Building2,
+    'ui-ux': Palette,
+    'seo-performance': Zap,
+    'cross-platform': Smartphone,
+    'cloud-devops': ShieldCheck
+  };
 </script>
 
 <section class="services-section" id="services">
@@ -17,7 +27,7 @@
         <div class="service-card">
           <div class="card-header">
             <div class="icon-box">
-              <span class="icon">{service.icon}</span>
+              <svelte:component this={iconMap[service.id] || Building2} size={26} />
             </div>
             <h3 class="service-title">{service.title}</h3>
           </div>
@@ -46,7 +56,10 @@
         <h3>آماده شروع پروژه جدید هستید؟</h3>
         <p>برای بررسی نیازهای پروژه و دریافت مشاوره رایگان با ما در ارتباط باشید.</p>
       </div>
-      <a href="#contact" class="cta-btn">درخواست مشاوره رایگان ↗</a>
+      <a href="#contact" class="cta-btn">
+        <span>درخواست مشاوره رایگان</span>
+        <ArrowUpRight size={16} />
+      </a>
     </div>
   </div>
 </section>
@@ -132,17 +145,15 @@
     margin-bottom: 16px;
   }
   .icon-box {
-    width: 44px;
-    height: 44px;
-    background: #f8fafc;
+    width: 48px;
+    height: 48px;
+    background: #eff6ff;
+    color: #1e40af;
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-  }
-  .icon {
-    font-size: 20px;
   }
   .service-title {
     font-size: 18px;

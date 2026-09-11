@@ -4,6 +4,8 @@
   import { formatPrice } from '../../utils/numberToWords';
   import { toPersianDigits } from '../../utils/persianDigits';
   import { generateInvoiceNumber } from '../../utils/persianDate';
+  import { generateUUID } from '../../utils/uuid';
+  import { Plus, Printer, Edit3, Copy, Trash2, FileText } from 'lucide-svelte';
 
   export let onNavigate: (tab: string, param?: string) => void;
 
@@ -32,8 +34,9 @@
         const db = getDatabase();
         await db.deleteInvoice(id);
         invoices = invoices.filter(i => i.id !== id);
-      } catch (e) {
-        alert('خطا در حذف فاکتور');
+      } catch (e: any) {
+        const msg = e?.message || 'خطا در حذف فاکتور';
+        alert(`خطا در حذف فاکتور: ${msg}`);
       }
     }
   }
@@ -43,7 +46,7 @@
       const db = getDatabase();
       const newInv: Invoice = {
         ...inv,
-        id: 'inv-' + Date.now(),
+        id: generateUUID(),
         invoiceNumber: generateInvoiceNumber(inv.type),
         title: `${inv.title} (کپی)`,
         status: 'draft',
@@ -52,8 +55,9 @@
       await db.saveInvoice(newInv);
       invoices = [newInv, ...invoices];
       alert(`یک نسخه جدید با شماره ${newInv.invoiceNumber} ایجاد شد.`);
-    } catch (e) {
-      alert('خطا در کپی فاکتور');
+    } catch (e: any) {
+      const msg = e?.message || 'خطا در کپی فاکتور';
+      alert(`خطا در کپی فاکتور: ${msg}`);
     }
   }
 
@@ -86,7 +90,8 @@
     </div>
     <div class="header-actions">
       <button class="btn btn-primary" on:click={() => onNavigate('invoice-new')}>
-        + صدور فاکتور / پیش‌فاکتور جدید
+        <Plus size={16} />
+        <span>صدور فاکتور جدید</span>
       </button>
     </div>
   </div>
@@ -126,10 +131,13 @@
       <div class="loading-state">در حال بارگذاری فاکتورها...</div>
     {:else if filteredInvoices.length === 0}
       <div class="empty-state">
-        <span class="empty-icon">🧾</span>
+        <span class="empty-icon-box">
+          <FileText size={48} />
+        </span>
         <p>هیچ فاکتوری با این مشخصات یافت نشد.</p>
         <button class="btn btn-primary" on:click={() => onNavigate('invoice-new')}>
-          صدور اولین فاکتور
+          <Plus size={16} />
+          <span>صدور اولین فاکتور</span>
         </button>
       </div>
     {:else}
@@ -183,16 +191,19 @@
               <td>
                 <div class="actions-group">
                   <button class="btn-action print" title="چاپ رسمی و دریافت PDF" on:click={() => onNavigate('invoice-print', inv.id)}>
-                    🖨️ چاپ A4
+                    <Printer size={13} />
+                    <span>چاپ A4</span>
                   </button>
                   <button class="btn-action edit" title="ویرایش اطلاعات" on:click={() => onNavigate('invoice-edit', inv.id)}>
-                    ✏️ ویرایش
+                    <Edit3 size={13} />
+                    <span>ویرایش</span>
                   </button>
                   <button class="btn-action copy" title="تکثیر و صدور مجدد" on:click={() => handleDuplicate(inv)}>
-                    📋 کپی
+                    <Copy size={13} />
+                    <span>کپی</span>
                   </button>
                   <button class="btn-action delete" title="حذف فاکتور" on:click={() => handleDelete(inv.id, inv.invoiceNumber)}>
-                    🗑️
+                    <Trash2 size={14} />
                   </button>
                 </div>
               </td>

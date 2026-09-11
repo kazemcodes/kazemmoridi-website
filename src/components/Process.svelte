@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Check, PhoneCall, ExternalLink, ArrowLeft } from 'lucide-svelte';
   import { processSteps } from '../data/process';
   import { contactData } from '../data/contacts';
 </script>
@@ -24,7 +25,9 @@
             <span class="del-heading">خروجی‌های این مرحله:</span>
             {#each step.deliverables as d}
               <div class="del-item">
-                <span class="del-dot">✓</span>
+                <span class="del-dot">
+                  <Check size={13} strokeWidth={2.5} />
+                </span>
                 <span>{d}</span>
               </div>
             {/each}
@@ -41,14 +44,17 @@
       </div>
       <div class="cta-actions">
         <a href={`tel:${contactData.phone}`} class="btn btn-white btn-lg">
+          <PhoneCall size={16} />
           <span>تماس تلفنی:</span>
           <bdi dir="ltr" class="phone-digits">{contactData.phoneDisplay}</bdi>
         </a>
         <a href={contactData.bale} target="_blank" rel="noopener noreferrer" class="btn btn-outline-white btn-lg">
-          پیام در بله (Bale) ↗
+          <span>پیام در بله (Bale)</span>
+          <ExternalLink size={16} />
         </a>
         <a href="#contact" class="btn btn-outline-white btn-lg">
-          ثبت فرم درخواست آنلاین
+          <span>ثبت فرم درخواست آنلاین</span>
+          <ArrowLeft size={16} />
         </a>
       </div>
     </div>
@@ -146,8 +152,9 @@
 
   .del-dot {
     color: var(--success);
-    font-size: 12px;
-    font-weight: 900;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   /* CTA Banner */

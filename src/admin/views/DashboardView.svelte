@@ -3,6 +3,7 @@
   import { getDatabase, type Invoice, type OfficialLetter } from '../../services/db';
   import { formatPrice } from '../../utils/numberToWords';
   import { toPersianDigits } from '../../utils/persianDigits';
+  import { Wallet, Clock, FileText, Mail, Plus, Printer, Edit3, ArrowLeft } from 'lucide-svelte';
 
   export let onNavigate: (tab: string, param?: string) => void;
 
@@ -46,10 +47,12 @@
     </div>
     <div class="header-actions">
       <button class="btn btn-primary" on:click={() => onNavigate('invoice-new')}>
-        + صدور فاکتور / پیش‌فاکتور جدید
+        <Plus size={16} />
+        <span>صدور فاکتور / پیش‌فاکتور جدید</span>
       </button>
       <button class="btn btn-outline" on:click={() => onNavigate('letter-new')}>
-        + نگارش نامه اداری جدید
+        <Plus size={16} />
+        <span>نگارش نامه اداری جدید</span>
       </button>
     </div>
   </div>
@@ -60,7 +63,9 @@
     <!-- Metrics Grid -->
     <div class="metrics-grid">
       <div class="metric-card card-blue">
-        <div class="metric-icon">💰</div>
+        <div class="metric-icon">
+          <Wallet size={24} />
+        </div>
         <div class="metric-content">
           <span class="metric-label">کل دریافتی تسویه‌شده</span>
           <div class="metric-value">
@@ -72,7 +77,9 @@
       </div>
 
       <div class="metric-card card-amber">
-        <div class="metric-icon">⏳</div>
+        <div class="metric-icon">
+          <Clock size={24} />
+        </div>
         <div class="metric-content">
           <span class="metric-label">مطالبات در انتظار پرداخت</span>
           <div class="metric-value">
@@ -84,7 +91,9 @@
       </div>
 
       <div class="metric-card card-emerald">
-        <div class="metric-icon">🧾</div>
+        <div class="metric-icon">
+          <FileText size={24} />
+        </div>
         <div class="metric-content">
           <span class="metric-label">کل فاکتورها و پیش‌فاکتورها</span>
           <div class="metric-value">
@@ -96,7 +105,9 @@
       </div>
 
       <div class="metric-card card-indigo">
-        <div class="metric-icon">✉️</div>
+        <div class="metric-icon">
+          <Mail size={24} />
+        </div>
         <div class="metric-content">
           <span class="metric-label">نامه‌ها و قراردادهای رسمی</span>
           <div class="metric-value">
@@ -165,10 +176,12 @@
                     <td>
                       <div class="row-actions">
                         <button class="action-btn print" title="چاپ و مشاهده رسمی" on:click={() => onNavigate('invoice-print', inv.id)}>
-                          🖨️ چاپ
+                          <Printer size={13} />
+                          <span>چاپ</span>
                         </button>
                         <button class="action-btn edit" title="ویرایش" on:click={() => onNavigate('invoice-edit', inv.id)}>
-                          ✏️ ویرایش
+                          <Edit3 size={13} />
+                          <span>ویرایش</span>
                         </button>
                       </div>
                     </td>
@@ -185,7 +198,8 @@
         <div class="box-header">
           <h3>نامه‌ها و قراردادهای اداری اخیر</h3>
           <button class="view-all-link" on:click={() => onNavigate('letters')}>
-            مشاهده همه ({toPersianDigits(letters.length)}) &larr;
+            <span>مشاهده همه ({toPersianDigits(letters.length)})</span>
+            <ArrowLeft size={14} />
           </button>
         </div>
 
@@ -203,10 +217,12 @@
                 <p class="let-recipient">گیرنده: {letItem.recipientTitle}</p>
                 <div class="let-actions">
                   <button class="action-btn print" on:click={() => onNavigate('letter-print', letItem.id)}>
-                    چاپ روی سربرگ A4 🖨️
+                    <Printer size={13} />
+                    <span>چاپ سربرگ A4</span>
                   </button>
                   <button class="action-btn edit" on:click={() => onNavigate('letter-edit', letItem.id)}>
-                    ویرایش ✏️
+                    <Edit3 size={13} />
+                    <span>ویرایش</span>
                   </button>
                 </div>
               </div>

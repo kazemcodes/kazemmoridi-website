@@ -102,20 +102,16 @@ CREATE TABLE IF NOT EXISTS studio_profile (
 );
 
 -- Row Level Security (RLS) policies
+-- Supports both authenticated Supabase Auth users AND the project's anon client
 ALTER TABLE clients ENABLE ROW LEVEL SECURITY;
 ALTER TABLE invoices ENABLE ROW LEVEL SECURITY;
 ALTER TABLE invoice_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE official_letters ENABLE ROW LEVEL SECURITY;
 ALTER TABLE studio_profile ENABLE ROW LEVEL SECURITY;
 
--- Row Level Security (RLS) policies: STRICTLY SECURED
--- Only authenticated users logged into Supabase Auth can view or modify data.
--- Anonymous visitors cannot access any financial or client data.
-
-DROP POLICY IF EXISTS "Enable read access for all users" ON clients;
-DROP POLICY IF EXISTS "Enable insert access for all users" ON clients;
-DROP POLICY IF EXISTS "Enable update access for all users" ON clients;
-DROP POLICY IF EXISTS "Enable delete access for all users" ON clients;
+-- 1. Clients Policies
+DROP POLICY IF EXISTS "Allow authenticated full access to clients" ON clients;
+DROP POLICY IF EXISTS "Allow anon full access to clients" ON clients;
 
 CREATE POLICY "Allow authenticated full access to clients"
   ON clients FOR ALL
@@ -123,10 +119,15 @@ CREATE POLICY "Allow authenticated full access to clients"
   USING (true)
   WITH CHECK (true);
 
-DROP POLICY IF EXISTS "Enable read access for all users" ON invoices;
-DROP POLICY IF EXISTS "Enable insert access for all users" ON invoices;
-DROP POLICY IF EXISTS "Enable update access for all users" ON invoices;
-DROP POLICY IF EXISTS "Enable delete access for all users" ON invoices;
+CREATE POLICY "Allow anon full access to clients"
+  ON clients FOR ALL
+  TO anon
+  USING (true)
+  WITH CHECK (true);
+
+-- 2. Invoices Policies
+DROP POLICY IF EXISTS "Allow authenticated full access to invoices" ON invoices;
+DROP POLICY IF EXISTS "Allow anon full access to invoices" ON invoices;
 
 CREATE POLICY "Allow authenticated full access to invoices"
   ON invoices FOR ALL
@@ -134,10 +135,15 @@ CREATE POLICY "Allow authenticated full access to invoices"
   USING (true)
   WITH CHECK (true);
 
-DROP POLICY IF EXISTS "Enable read access for all users" ON invoice_items;
-DROP POLICY IF EXISTS "Enable insert access for all users" ON invoice_items;
-DROP POLICY IF EXISTS "Enable update access for all users" ON invoice_items;
-DROP POLICY IF EXISTS "Enable delete access for all users" ON invoice_items;
+CREATE POLICY "Allow anon full access to invoices"
+  ON invoices FOR ALL
+  TO anon
+  USING (true)
+  WITH CHECK (true);
+
+-- 3. Invoice Items Policies
+DROP POLICY IF EXISTS "Allow authenticated full access to invoice_items" ON invoice_items;
+DROP POLICY IF EXISTS "Allow anon full access to invoice_items" ON invoice_items;
 
 CREATE POLICY "Allow authenticated full access to invoice_items"
   ON invoice_items FOR ALL
@@ -145,10 +151,15 @@ CREATE POLICY "Allow authenticated full access to invoice_items"
   USING (true)
   WITH CHECK (true);
 
-DROP POLICY IF EXISTS "Enable read access for all users" ON official_letters;
-DROP POLICY IF EXISTS "Enable insert access for all users" ON official_letters;
-DROP POLICY IF EXISTS "Enable update access for all users" ON official_letters;
-DROP POLICY IF EXISTS "Enable delete access for all users" ON official_letters;
+CREATE POLICY "Allow anon full access to invoice_items"
+  ON invoice_items FOR ALL
+  TO anon
+  USING (true)
+  WITH CHECK (true);
+
+-- 4. Official Letters Policies
+DROP POLICY IF EXISTS "Allow authenticated full access to official_letters" ON official_letters;
+DROP POLICY IF EXISTS "Allow anon full access to official_letters" ON official_letters;
 
 CREATE POLICY "Allow authenticated full access to official_letters"
   ON official_letters FOR ALL
@@ -156,12 +167,25 @@ CREATE POLICY "Allow authenticated full access to official_letters"
   USING (true)
   WITH CHECK (true);
 
-DROP POLICY IF EXISTS "Enable read access for all users" ON studio_profile;
-DROP POLICY IF EXISTS "Enable insert access for all users" ON studio_profile;
-DROP POLICY IF EXISTS "Enable update access for all users" ON studio_profile;
+CREATE POLICY "Allow anon full access to official_letters"
+  ON official_letters FOR ALL
+  TO anon
+  USING (true)
+  WITH CHECK (true);
+
+-- 5. Studio Profile Policies
+DROP POLICY IF EXISTS "Allow authenticated full access to studio_profile" ON studio_profile;
+DROP POLICY IF EXISTS "Allow anon full access to studio_profile" ON studio_profile;
 
 CREATE POLICY "Allow authenticated full access to studio_profile"
   ON studio_profile FOR ALL
   TO authenticated
   USING (true)
   WITH CHECK (true);
+
+CREATE POLICY "Allow anon full access to studio_profile"
+  ON studio_profile FOR ALL
+  TO anon
+  USING (true)
+  WITH CHECK (true);
+

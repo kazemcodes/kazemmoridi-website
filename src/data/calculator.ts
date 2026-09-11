@@ -20,7 +20,7 @@ export const projectTypes: ProjectTypeOption[] = [
     id: 'store',
     title: 'فروشگاه اینترنتی آنلاین',
     desc: 'فروشگاه استاندارد یا اختصاصی با درگاه پرداخت، فاکتور و انبارداری',
-    icon: '🛍️',
+    icon: 'shopping-bag',
     basePrice: 15,
     baseDays: 14
   },
@@ -28,7 +28,7 @@ export const projectTypes: ProjectTypeOption[] = [
     id: 'platform',
     title: 'سامانه یا پلتفرم اختصاصی',
     desc: 'پرتال سازمانی، سیستم آموزشی، سامانه رزرو یا نرم‌افزار SaaS',
-    icon: '🏢',
+    icon: 'building-2',
     basePrice: 24,
     baseDays: 25
   },
@@ -36,7 +36,7 @@ export const projectTypes: ProjectTypeOption[] = [
     id: 'corporate',
     title: 'وب‌سایت شرکتی و معرفی برند',
     desc: 'وب‌سایت مدرن با طراحی اختصاصی، معرفی خدمات و جذب لید',
-    icon: '💼',
+    icon: 'briefcase',
     basePrice: 9,
     baseDays: 10
   },
@@ -44,7 +44,7 @@ export const projectTypes: ProjectTypeOption[] = [
     id: 'app',
     title: 'اپلیکیشن چندپلتفرمی یا PWA',
     desc: 'نرم‌افزار موبایل و دسکتاپ متصل به وب‌سایت با فلاتر',
-    icon: '📱',
+    icon: 'smartphone',
     basePrice: 18,
     baseDays: 20
   }

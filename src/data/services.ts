@@ -10,7 +10,7 @@ export interface ServiceItem {
 export const servicesData: ServiceItem[] = [
   {
     id: 'ecommerce',
-    icon: '🛍️',
+    icon: 'shopping-bag',
     title: 'طراحی و ساخت فروشگاه‌های اینترنتی',
     description: 'راه‌اندازی فروشگاه‌های آنلاین استاندارد، مدرن و فوق سریع با WooCommerce یا ساختار سفارشی Laravel. مجهز به درگاه‌های پرداخت شتابی، سیستم انبارداری، صدور فاکتور رسمی و بهینه‌سازی سبد خرید برای حداکثر فروش.',
     features: [
@@ -23,7 +23,7 @@ export const servicesData: ServiceItem[] = [
   },
   {
     id: 'custom-web-apps',
-    icon: '🏢',
+    icon: 'building-2',
     title: 'سامانه‌ها و پلتفرم‌های اختصاصی تحت وب',
     description: 'توسعه پرتال‌های سازمانی، سامانه‌های مدیریت آموزشی و مدارس، داشبوردهای مدیریتی و نرم‌افزارهای SaaS با جدیدترین فریم‌ورک‌های وب نظیر Laravel 13، Svelte 5 و Filament.',
     features: [
@@ -36,7 +36,7 @@ export const servicesData: ServiceItem[] = [
   },
   {
     id: 'ui-ux',
-    icon: '🎨',
+    icon: 'palette',
     title: 'طراحی رابط و تجربه کاربری (UI/UX)',
     description: 'طراحی هویت بصری، وایرفریم‌ها و پروتوتایپ‌های جذاب، واکنش‌گرا و سازگار با رفتار کاربران ایرانی (RTL بومی و تقویم شمسی جلالی) برای ماندگاری کاربران در وب‌سایت شما.',
     features: [
@@ -49,7 +49,7 @@ export const servicesData: ServiceItem[] = [
   },
   {
     id: 'seo-performance',
-    icon: '⚡',
+    icon: 'zap',
     title: 'بهینه‌سازی سرعت بارگذاری و سئو تکنیکال',
     description: 'دستیابی به امتیاز بالای ۹۵ در گوگل لایت‌هاوس (Google Lighthouse)، بهینه‌سازی دیتابیس، کش چندلایه و اجرای سئو ساختاریافته برای قرارگیری در رتبه‌های برتر نتایج جستجوی گوگل.',
     features: [
@@ -62,7 +62,7 @@ export const servicesData: ServiceItem[] = [
   },
   {
     id: 'cross-platform',
-    icon: '📱',
+    icon: 'smartphone',
     title: 'اپلیکیشن‌های موبایل و نرم‌افزارهای چندپلتفرمی',
     description: 'توسعه اپلیکیشن‌های همراه اندروید، iOS و دسکتاپ (ویندوز، مک و لینوکس) با تکنولوژی‌های مدرن Flutter و Kotlin Multiplatform برای اتوماسیون فرآیندهای مالی و سازمانی.',
     features: [
@@ -75,7 +75,7 @@ export const servicesData: ServiceItem[] = [
   },
   {
     id: 'cloud-devops',
-    icon: '🔒',
+    icon: 'shield-check',
     title: 'استقرار اقتصادی، امنیت و پشتیبانی مداوم',
     description: 'استقرار بهینه‌شده روی هاست‌های اشتراکی ارزان‌قیمت بدون افت کیفیت یا سرورهای ابری اختصاصی با Docker و CI/CD، همراه با امنیت بالا، پشتیبان‌گیری منظم و مانیتورینگ شبانه‌روزی.',
     features: [

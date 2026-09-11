@@ -31,7 +31,7 @@ export const projectsData: Project[] = [
     displayUrl: 'farmahan.ir',
     status: 'live',
     statusLabel: 'فعال و آنلاین',
-    roleBadge: '👑 معمار ارشد و فول‌استک',
+    roleBadge: 'معمار ارشد و فول‌استک',
     highlights: [
       'مدیریت ۵ هنرستان کشاورزی و صنعتی فعال در هرمزگان',
       'معماری فوق سریع Laravel 13 + Svelte 5 + Filament',
@@ -58,7 +58,7 @@ export const projectsData: Project[] = [
     displayUrl: 'icount.ir',
     status: 'deploying',
     statusLabel: 'آماده‌سازی استقرار',
-    roleBadge: '🚀 بنیان‌گذار و توسعه‌دهنده',
+    roleBadge: 'بنیان‌گذار و توسعه‌دهنده',
     highlights: [
       'اجرای یکپارچه روی ویندوز، مک، اندروید و تبلت',
       'ثبت فاکتور زیر ۵ ثانیه با اتصال به پوز بانکی',
@@ -83,7 +83,7 @@ export const projectsData: Project[] = [
     displayUrl: 'kalakhash.ir',
     status: 'live',
     statusLabel: 'فروشگاه فعال',
-    roleBadge: '🛍️ فروشگاه آنلاین سفارشی',
+    roleBadge: 'فروشگاه آنلاین سفارشی',
     highlights: [
       'سرعت بالای Single Page Application با سئوی کامل',
       'اتصال مستقیم به درگاه پرداخت بانکی شاپرک',
@@ -104,7 +104,7 @@ export const projectsData: Project[] = [
     displayUrl: 'dubakala.ir',
     status: 'live',
     statusLabel: 'فروشگاه فعال',
-    roleBadge: '🛍️ طراحی و راه‌اندازی کامل',
+    roleBadge: 'طراحی و راه‌اندازی کامل',
     highlights: [
       'طراحی تبدیل‌محور با تجربه پرداخت سریع',
       'بهینه‌سازی ریسپانسیو اختصاصی برای کاربران موبایل',
@@ -124,7 +124,7 @@ export const projectsData: Project[] = [
     displayUrl: 'jonoobluxshop.ir',
     status: 'live',
     statusLabel: 'فروشگاه فعال',
-    roleBadge: '🛍️ طراحی لوکس و بهینه‌سازی',
+    roleBadge: 'طراحی لوکس و بهینه‌سازی',
     highlights: [
       'هویت بصری لوکس متناسب با برندهای معتبر',
       'لود سریع تصاویر باکیفیت و رزولوشن بالا'
@@ -142,8 +142,8 @@ export const projectsData: Project[] = [
     url: 'https://github.com/kazemcodes/Elementor-Copier',
     displayUrl: 'github.com/kazemcodes/Elementor-Copier',
     status: 'open-source',
-    statusLabel: '🛠️ ابزار توسعه',
-    roleBadge: '⚙️ افزونه کروم اختصاصی',
+    statusLabel: 'ابزار توسعه',
+    roleBadge: 'افزونه کروم اختصاصی',
     highlights: [
       'کپی آنی ساختار سکشن، استایل‌ها و تصاویر',
       'صرفه‌جویی در ساعت‌ها کار طراحان وب'
@@ -161,8 +161,8 @@ export const projectsData: Project[] = [
     url: 'https://github.com/kazemcodes/gradle-mirror-cloudflare-worker',
     displayUrl: 'workers.cloudflare.com',
     status: 'open-source',
-    statusLabel: '🛠️ زیرساخت ابری',
-    roleBadge: '⚙️ مهندس زیرساخت',
+    statusLabel: 'زیرساخت ابری',
+    roleBadge: 'مهندس زیرساخت',
     highlights: [
       'توزیع در لبه شبکه با کلودفلر ورکرز',
       'حل اختلالات دانلود کتابخانه‌های اندروید'
@@ -180,8 +180,8 @@ export const projectsData: Project[] = [
     url: 'https://github.com/kazemcodes/skill-tree',
     displayUrl: 'github.com/kazemcodes/skill-tree',
     status: 'open-source',
-    statusLabel: '🤖 مهندسی AI',
-    roleBadge: '🤖 معمار مهارت‌های AI',
+    statusLabel: 'مهندسی هوش مصنوعی',
+    roleBadge: 'معمار مهارت‌های هوش مصنوعی',
     highlights: [
       'بیش از ۱۰۰ مهارت مهندسی نرم‌افزار',
       'سازگار با تمام Agent Frameworkهای نوین'

@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { X, Lock, ExternalLink, Monitor, Smartphone } from 'lucide-svelte';
   import type { Project } from '../data/projects';
 
   export let isOpen = false;
@@ -57,7 +58,8 @@
               on:click={() => deviceMode = 'desktop'}
               title="نمای دسکتاپ"
             >
-              دسکتاپ
+              <Monitor size={14} />
+              <span>دسکتاپ</span>
             </button>
             <button 
               class="device-btn" 
@@ -65,7 +67,8 @@
               on:click={() => deviceMode = 'mobile'}
               title="نمای موبایل"
             >
-              موبایل
+              <Smartphone size={14} />
+              <span>موبایل</span>
             </button>
           </div>
         </div>
@@ -79,9 +82,12 @@
         <!-- Actions -->
         <div class="browser-controls-right">
           <a href={project.url} target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">
-            مشاهده در تب جدید ↗
+            <span>مشاهده در تب جدید</span>
+            <ExternalLink size={14} />
           </a>
-          <button class="close-btn" on:click={onClose} aria-label="بستن">✕</button>
+          <button class="close-btn" on:click={onClose} aria-label="بستن">
+            <X size={18} />
+          </button>
         </div>
       </div>
 
@@ -104,10 +110,13 @@
         <div class="viewport-device-frame" class:frame-mobile={deviceMode === 'mobile'}>
           {#if iframeError}
             <div class="preview-error-state">
-              <div class="error-icon">🔒</div>
+              <div class="error-icon">
+                <Lock size={44} />
+              </div>
               <p>امکان نمایش مستقیم در فریم به دلیل محدودیت‌های امنیتی وب‌سایت مقصد (X-Frame-Options) وجود ندارد.</p>
               <a href={project.url} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                مشاهده مستقیم وب‌سایت در پنجره جدید ↗
+                <span>مشاهده مستقیم وب‌سایت در پنجره جدید</span>
+                <ExternalLink size={16} />
               </a>
             </div>
           {:else if iframeLoading}
@@ -214,6 +223,9 @@
   }
 
   .device-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     padding: 4px 10px;
     font-size: 12px;
     font-weight: 600;
@@ -400,5 +412,38 @@
     font-size: 12px;
     color: var(--text-subtle);
     max-width: 400px;
+  }
+
+  /* Error state */
+  .preview-error-state {
+    position: absolute;
+    inset: 0;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    text-align: center;
+    gap: 16px;
+    z-index: 10;
+  }
+
+  .error-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #fef2f2;
+    color: #ef4444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .preview-error-state p {
+    font-size: 14px;
+    color: var(--text-muted);
+    max-width: 460px;
+    line-height: 1.6;
   }
 </style>

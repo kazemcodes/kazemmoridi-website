@@ -3,6 +3,7 @@
   import { getDatabase, type Invoice, type StudioProfile } from '../../services/db';
   import { numberToPersianWords, formatPrice } from '../../utils/numberToWords';
   import { toPersianDigits } from '../../utils/persianDigits';
+  import { Printer, Edit3, ArrowRight } from 'lucide-svelte';
 
   export let invoiceId: string;
   export let onNavigate: (tab: string, param?: string) => void;
@@ -37,15 +38,18 @@
   <div class="screen-controls no-print">
     <div class="controls-left">
       <button class="btn btn-outline" on:click={() => onNavigate('invoices')}>
-        &rarr; بازگشت به لیست فاکتورها
+        <ArrowRight size={16} />
+        <span>بازگشت به لیست فاکتورها</span>
       </button>
       <button class="btn btn-outline" on:click={() => onNavigate('invoice-edit', invoiceId)}>
-        ✏️ ویرایش فاکتور
+        <Edit3 size={16} />
+        <span>ویرایش فاکتور</span>
       </button>
     </div>
     <div class="controls-right">
       <button class="btn btn-print" on:click={handlePrint}>
-        🖨️ چاپ فاکتور / ذخیره به عنوان PDF
+        <Printer size={16} />
+        <span>چاپ فاکتور / ذخیره به عنوان PDF</span>
       </button>
     </div>
   </div>

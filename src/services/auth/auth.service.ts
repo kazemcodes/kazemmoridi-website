@@ -50,16 +50,21 @@ export class AuthService {
 
     // Check sessionStorage flag
     const hasLocalSession = sessionStorage.getItem(SESSION_KEY) === 'true';
-    if (!hasLocalSession) return false;
+    if (hasLocalSession) return true;
 
+    // Check if there is an active Supabase Auth session
     const supabase = this.getSupabaseClient();
     if (supabase) {
-      const { data } = await supabase.auth.getSession();
-      return Boolean(data?.session);
+      try {
+        const { data } = await supabase.auth.getSession();
+        if (data?.session) {
+          sessionStorage.setItem(SESSION_KEY, 'true');
+          return true;
+        }
+      } catch {}
     }
 
-    // Local mode authenticated
-    return hasLocalSession;
+    return false;
   }
 
   static async login(password: string, email?: string): Promise<AuthResult> {
@@ -99,6 +104,19 @@ export class AuthService {
     if (isDirectMatch) {
       this.resetAttempts();
       sessionStorage.setItem(SESSION_KEY, 'true');
+
+      // Sync Supabase Auth in background if configured
+      if (supabase) {
+        try {
+          await supabase.auth.signInWithPassword({
+            email: inputEmail,
+            password: inputPass
+          });
+        } catch (e) {
+          console.debug('Supabase Auth auto-sync note (skipped if user not in Supabase Auth):', e);
+        }
+      }
+
       return {
         success: true,
         userEmail: envEmail

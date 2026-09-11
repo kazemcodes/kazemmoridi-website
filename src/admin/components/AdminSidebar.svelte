@@ -1,13 +1,15 @@
 <script lang="ts">
+  import { LayoutDashboard, FileText, Mail, Users, Settings, Plus } from 'lucide-svelte';
+
   export let activeTab: string = 'dashboard';
   export let onNavigate: (tab: string) => void;
 
   const navItems = [
-    { id: 'dashboard', label: 'داشبورد و آمار کلی', icon: '📊' },
-    { id: 'invoices', label: 'فاکتورها و پیش‌فاکتورها', icon: '🧾' },
-    { id: 'letters', label: 'نامه‌ها و قراردادهای اداری', icon: '✉️' },
-    { id: 'clients', label: 'بانک مشتریان و کارفرمایان', icon: '👥' },
-    { id: 'settings', label: 'تنظیمات دیتابیس و مهر استودیو', icon: '⚙️' }
+    { id: 'dashboard', label: 'داشبورد و آمار کلی', icon: LayoutDashboard },
+    { id: 'invoices', label: 'فاکتورها و پیش‌فاکتورها', icon: FileText },
+    { id: 'letters', label: 'نامه‌ها و قراردادهای اداری', icon: Mail },
+    { id: 'clients', label: 'بانک مشتریان و کارفرمایان', icon: Users },
+    { id: 'settings', label: 'تنظیمات دیتابیس و مهر استودیو', icon: Settings }
   ];
 </script>
 
@@ -19,7 +21,9 @@
         class:active={activeTab === item.id || activeTab.startsWith(`${item.id}-`)}
         on:click={() => onNavigate(item.id)}
       >
-        <span class="item-icon">{item.icon}</span>
+        <span class="item-icon">
+          <svelte:component this={item.icon} size={18} />
+        </span>
         <span class="item-label">{item.label}</span>
       </button>
     {/each}
@@ -29,10 +33,12 @@
     <div class="quick-create-card">
       <span class="qc-title">دسترسی سریع</span>
       <button class="qc-btn qc-invoice" on:click={() => onNavigate('invoice-new')}>
-        + صدور فاکتور جدید
+        <Plus size={14} />
+        <span>صدور فاکتور جدید</span>
       </button>
       <button class="qc-btn qc-letter" on:click={() => onNavigate('letter-new')}>
-        + نگارش نامه رسمی
+        <Plus size={14} />
+        <span>نگارش نامه رسمی</span>
       </button>
     </div>
   </div>
@@ -87,7 +93,12 @@
   }
 
   .item-icon {
-    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    color: currentColor;
   }
 
   .sidebar-footer {
@@ -121,7 +132,10 @@
     font-family: inherit;
     cursor: pointer;
     border: none;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
     transition: all 0.2s ease;
   }
 

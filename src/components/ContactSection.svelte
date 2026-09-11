@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { MessageSquare, Phone, Send, MessageCircle, Mail, MapPin, CheckCircle2, RotateCcw } from 'lucide-svelte';
   import { contactData } from '../data/contacts';
 
   let formName = '';
@@ -38,11 +39,9 @@
     };
 
     const handleCustomPrefill = (e: any) => {
-      if (e.detail?.message) formMessage = e.detail.message;
-      if (e.detail?.service) formService = e.detail.service;
-      const targetEl = document.getElementById('contact');
-      if (targetEl) {
-        targetEl.scrollIntoView({ behavior: 'smooth' });
+      if (e.detail) {
+        if (e.detail.message) formMessage = e.detail.message;
+        if (e.detail.service) formService = e.detail.service;
       }
     };
 
@@ -60,7 +59,7 @@
 
     // Construct text for messenger
     const serviceName = formService || 'سفارش عمومی وب‌سایت';
-    const text = `سلام، درخواست جدید از سایت KM Studio:\n👤 نام: ${formName}\n📞 شماره تماس: ${formPhone}\n🛠️ سرویس: ${serviceName}\n📝 توضیحات: ${formMessage}`;
+    const text = `سلام، درخواست جدید از سایت KM Studio:\nنام: ${formName}\nشماره تماس: ${formPhone}\nسرویس: ${serviceName}\nتوضیحات: ${formMessage}`;
 
     // Auto-open Bale with prefilled text
     const baleUrl = `https://ble.ir/kazem_moridi?text=${encodeURIComponent(text)}`;
@@ -80,7 +79,9 @@
       <div class="contact-channels">
         <!-- Bale Messenger (Primary) -->
         <a href={contactData.bale} target="_blank" rel="noopener noreferrer" class="channel-card bale-card">
-          <div class="channel-dot bale-dot"></div>
+          <div class="channel-icon-box bale-icon-box">
+            <MessageSquare size={20} />
+          </div>
           <div class="channel-info">
             <div class="channel-badge">پیام‌رسان اصلی</div>
             <h4 class="channel-title">پیام‌رسان بله (Bale)</h4>
@@ -91,7 +92,9 @@
 
         <!-- Phone Direct -->
         <a href={`tel:${contactData.phone}`} class="channel-card phone-card">
-          <div class="channel-dot phone-dot"></div>
+          <div class="channel-icon-box phone-icon-box">
+            <Phone size={20} />
+          </div>
           <div class="channel-info">
             <h4 class="channel-title">تماس تلفنی مستقیم</h4>
             <div class="channel-value phone-val" dir="ltr">
@@ -103,7 +106,9 @@
 
         <!-- Telegram -->
         <a href={contactData.telegram} target="_blank" rel="noopener noreferrer" class="channel-card telegram-card">
-          <div class="channel-dot telegram-dot"></div>
+          <div class="channel-icon-box telegram-icon-box">
+            <Send size={20} />
+          </div>
           <div class="channel-info">
             <h4 class="channel-title">تلگرام (Telegram)</h4>
             <div class="channel-value" dir="ltr">{contactData.telegramUsername}</div>
@@ -113,7 +118,9 @@
 
         <!-- WhatsApp -->
         <a href={contactData.whatsapp} target="_blank" rel="noopener noreferrer" class="channel-card whatsapp-card">
-          <div class="channel-dot whatsapp-dot"></div>
+          <div class="channel-icon-box whatsapp-icon-box">
+            <MessageCircle size={20} />
+          </div>
           <div class="channel-info">
             <h4 class="channel-title">واتس‌اپ (WhatsApp)</h4>
             <div class="channel-value phone-val" dir="ltr">
@@ -124,7 +131,9 @@
 
         <!-- Email -->
         <a href={`mailto:${contactData.email}`} class="channel-card email-card">
-          <div class="channel-dot email-dot"></div>
+          <div class="channel-icon-box email-icon-box">
+            <Mail size={20} />
+          </div>
           <div class="channel-info">
             <h4 class="channel-title">ایمیل رسمی</h4>
             <div class="channel-value email-val">{contactData.email}</div>
@@ -132,7 +141,8 @@
         </a>
 
         <div class="location-text">
-          موقعیت استودیو: {contactData.location}
+          <MapPin size={16} />
+          <span>موقعیت استودیو: {contactData.location}</span>
         </div>
       </div>
 
@@ -140,15 +150,19 @@
       <div class="contact-form-wrapper">
         {#if formSubmitted}
           <div class="success-message">
-            <div class="success-icon"></div>
+            <div class="success-icon-box">
+              <CheckCircle2 size={44} />
+            </div>
             <h3>درخواست شما با موفقیت ثبت شد!</h3>
             <p>در حال انتقال به پیام‌رسان بله برای ارتباط مستقیم هستیم. در صورت عدم انتقال، می‌توانید از دکمه‌های زیر استفاده کنید:</p>
             <div class="success-actions">
               <a href={contactData.bale} target="_blank" rel="noopener noreferrer" class="btn-success-bale">
-                ورود به چت در بله (Bale)
+                <MessageSquare size={16} />
+                <span>ورود به چت در بله (Bale)</span>
               </a>
               <button class="btn-reset" on:click={() => (formSubmitted = false)}>
-                ثبت پیام جدید
+                <RotateCcw size={15} />
+                <span>ثبت پیام جدید</span>
               </button>
             </div>
           </div>
@@ -180,21 +194,20 @@
             </div>
 
             <div class="form-group">
-              <label for="service">نوع خدمات مورد نیاز</label>
+              <label for="service">نوع سرویس درخواستی</label>
               <select id="service" bind:value={formService} class="form-control">
-                <option value="">انتخاب نوع پروژه...</option>
-                <option value="ecommerce">طراحی فروشگاه اینترنتی آنلاین</option>
-                <option value="laravel">سامانه یا پلتفرم اختصاصی لاراول / Svelte</option>
-                <option value="corporate">وب‌سایت شرکتی و معرفی برند</option>
-                <option value="uiux">طراحی رابط و تجربه کاربری (UI/UX)</option>
-                <option value="seo">بهینه‌سازی سرعت و سئو تکنیکال</option>
-                <option value="mobile">اپلیکیشن موبایل و چندپلتفرمی فلاتر</option>
-                <option value="other">سایر موارد و مشاوره اختصاصی</option>
+                <option value="">انتخاب کنید (اختیاری)</option>
+                <option value="طراحی وب‌سایت شرکتی">طراحی وب‌سایت شرکتی</option>
+                <option value="فروشگاه اینترنتی اختصاصی">طراحی فروشگاه اینترنتی</option>
+                <option value="وب‌اپلیکیشن اختصاصی">وب‌اپلیکیشن و سیستم ابری</option>
+                <option value="طراحی UI/UX اختصاصی">طراحی UI/UX و برندینگ دیجیتال</option>
+                <option value="بهینه‌سازی و سئو">بهینه‌سازی سرعت و سئو تکنیکال</option>
+                <option value="مشاوره فنی و معماری نرم‌افزار">مشاوره فنی و نظارت بر پروژه</option>
               </select>
             </div>
 
             <div class="form-group">
-              <label for="message">توضیحات و جزئیات پروژه</label>
+              <label for="message">توضیحات پروژه یا سوال شما</label>
               <textarea 
                 id="message" 
                 bind:value={formMessage} 
@@ -205,7 +218,8 @@
             </div>
 
             <button type="submit" class="submit-btn">
-              <span>ثبت درخواست و ارسال به پیام‌رسان بله (Bale) ↗</span>
+              <span>ثبت درخواست و ارسال به پیام‌رسان بله (Bale)</span>
+              <Send size={18} />
             </button>
           </form>
         {/if}
@@ -292,18 +306,26 @@
   .whatsapp-card { border-right-color: #10b981; }
   .email-card { border-right-color: #6366f1; }
 
-  .channel-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
+  .channel-icon-box {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
+    transition: transform 0.2s ease;
   }
 
-  .bale-dot { background-color: #059669; }
-  .phone-dot { background-color: #1e40af; }
-  .telegram-dot { background-color: #0ea5e9; }
-  .whatsapp-dot { background-color: #10b981; }
-  .email-dot { background-color: #6366f1; }
+  .channel-card:hover .channel-icon-box {
+    transform: scale(1.08);
+  }
+
+  .bale-icon-box { background-color: #dcfce7; color: #059669; }
+  .phone-icon-box { background-color: #dbeafe; color: #1e40af; }
+  .telegram-icon-box { background-color: #e0f2fe; color: #0284c7; }
+  .whatsapp-icon-box { background-color: #d1fae5; color: #059669; }
+  .email-icon-box { background-color: #e0e7ff; color: #4f46e5; }
 
   .channel-info {
     display: flex;
@@ -359,6 +381,9 @@
     color: #64748b;
     padding: 0 8px;
     line-height: 1.6;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
   .contact-form-wrapper {
@@ -444,25 +469,12 @@
     color: #065f46;
   }
 
-  .success-icon {
-    width: 48px;
-    height: 48px;
-    background-color: #10b981;
-    border-radius: 50%;
-    margin: 0 auto 16px;
-    position: relative;
-  }
-
-  .success-icon::after {
-    content: '';
-    position: absolute;
-    left: 20px;
-    top: 14px;
-    width: 8px;
-    height: 16px;
-    border: solid #ffffff;
-    border-width: 0 3px 3px 0;
-    transform: rotate(45deg);
+  .success-icon-box {
+    color: #10b981;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
   }
 
   .success-message h3 {
@@ -492,6 +504,9 @@
     font-weight: 700;
     text-decoration: none;
     font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
   }
 
   .btn-reset {
@@ -504,5 +519,8 @@
     cursor: pointer;
     font-family: inherit;
     font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
   }
 </style>

@@ -1,6 +1,14 @@
 <script lang="ts">
   import { projectTypes, featureOptions } from '../data/calculator';
   import { toPersianDigits } from '../utils/persianDigits';
+  import { ShoppingBag, Building2, Briefcase, Smartphone, Check, ShieldCheck } from 'lucide-svelte';
+
+  const typeIconMap: Record<string, any> = {
+    store: ShoppingBag,
+    corporate: Building2,
+    platform: Briefcase,
+    app: Smartphone
+  };
 
   let selectedType: string = 'store';
   let selectedFeatures: string[] = ['payment', 'sms', 'seo_adv', 'support_vip'];
@@ -91,7 +99,9 @@
                 class:selected={selectedType === typeOption.id}
                 on:click={() => selectedType = typeOption.id}
               >
-                <span class="type-icon">{typeOption.icon}</span>
+                <span class="type-icon">
+                  <svelte:component this={typeIconMap[typeOption.id] || Building2} size={24} />
+                </span>
                 <span class="type-name">{typeOption.title}</span>
                 <span class="type-desc">{typeOption.desc}</span>
                 <span class="type-base">پایه از {toPersianDigits(typeOption.basePrice)} میلیون تومان</span>
@@ -115,7 +125,9 @@
                 on:click={() => toggleFeature(feat.id)}
               >
                 <span class="feat-checkbox">
-                  {#if selectedFeatures.includes(feat.id)}✓{/if}
+                  {#if selectedFeatures.includes(feat.id)}
+                    <Check size={12} strokeWidth={3} />
+                  {/if}
                 </span>
                 <span class="feat-title">{feat.title}</span>
                 <span class="feat-cost">+{toPersianDigits(feat.price)} م.ت</span>
@@ -162,9 +174,18 @@
             </div>
 
             <div class="guarantees-mini">
-              <div class="g-item">✓ گارانتی بازگشت وجه در صورت عدم تطابق</div>
-              <div class="g-item">✓ پشتیبانی فنی رایگان پس از تحویل</div>
-              <div class="g-item">✓ عقد قرارداد رسمی و مکتوب</div>
+              <div class="g-item">
+                <ShieldCheck size={15} />
+                <span>گارانتی بازگشت وجه در صورت عدم تطابق</span>
+              </div>
+              <div class="g-item">
+                <ShieldCheck size={15} />
+                <span>پشتیبانی فنی رایگان پس از تحویل</span>
+              </div>
+              <div class="g-item">
+                <ShieldCheck size={15} />
+                <span>عقد قرارداد رسمی و مکتوب</span>
+              </div>
             </div>
 
             <div class="summary-actions">
@@ -508,6 +529,9 @@
   }
 
   .g-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     color: #047857;
   }
 

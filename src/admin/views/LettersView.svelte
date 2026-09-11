@@ -3,6 +3,8 @@
   import { getDatabase, type OfficialLetter } from '../../services/db';
   import { toPersianDigits } from '../../utils/persianDigits';
   import { generateLetterNumber } from '../../utils/persianDate';
+  import { generateUUID } from '../../utils/uuid';
+  import { Plus, Printer, Edit3, Copy, Trash2, Mail } from 'lucide-svelte';
 
   export let onNavigate: (tab: string, param?: string) => void;
 
@@ -31,8 +33,9 @@
         const db = getDatabase();
         await db.deleteLetter(id);
         letters = letters.filter(l => l.id !== id);
-      } catch (e) {
-        alert('خطا در حذف نامه');
+      } catch (e: any) {
+        const msg = e?.message || 'خطا در حذف نامه';
+        alert(`خطا در حذف نامه: ${msg}`);
       }
     }
   }
@@ -42,7 +45,7 @@
       const db = getDatabase();
       const newLetter: OfficialLetter = {
         ...item,
-        id: 'let-' + Date.now(),
+        id: generateUUID(),
         letterNumber: generateLetterNumber(),
         subject: `${item.subject} (رونوشت)`,
         status: 'draft',
@@ -51,8 +54,9 @@
       await db.saveLetter(newLetter);
       letters = [newLetter, ...letters];
       alert(`یک نسخه رونوشت با شماره ${newLetter.letterNumber} ایجاد گردید.`);
-    } catch (e) {
-      alert('خطا در کپی نامه');
+    } catch (e: any) {
+      const msg = e?.message || 'خطا در کپی نامه';
+      alert(`خطا در کپی نامه: ${msg}`);
     }
   }
 
@@ -78,7 +82,8 @@
     </div>
     <div class="header-actions">
       <button class="btn btn-primary" on:click={() => onNavigate('letter-new')}>
-        + نگارش نامه یا قرارداد جدید
+        <Plus size={16} />
+        <span>نگارش نامه یا قرارداد جدید</span>
       </button>
     </div>
   </div>
@@ -115,10 +120,13 @@
       <div class="loading-state">در حال بارگذاری نامه‌ها...</div>
     {:else if filteredLetters.length === 0}
       <div class="empty-state">
-        <span class="empty-icon">✉️</span>
+        <span class="empty-icon-box">
+          <Mail size={48} />
+        </span>
         <p>هیچ نامه‌ای با این مشخصات ثبت نشده است.</p>
         <button class="btn btn-primary" on:click={() => onNavigate('letter-new')}>
-          نگارش اولین نامه رسمی
+          <Plus size={16} />
+          <span>نگارش اولین نامه رسمی</span>
         </button>
       </div>
     {:else}
@@ -160,16 +168,19 @@
               <td>
                 <div class="actions-group">
                   <button class="btn-action print" title="چاپ بر روی سربرگ A4" on:click={() => onNavigate('letter-print', letItem.id)}>
-                    🖨️ چاپ سربرگ
+                    <Printer size={13} />
+                    <span>چاپ سربرگ</span>
                   </button>
                   <button class="btn-action edit" title="ویرایش نامه" on:click={() => onNavigate('letter-edit', letItem.id)}>
-                    ✏️ ویرایش
+                    <Edit3 size={13} />
+                    <span>ویرایش</span>
                   </button>
                   <button class="btn-action copy" title="رونوشت نامه" on:click={() => handleDuplicate(letItem)}>
-                    📋 رونوشت
+                    <Copy size={13} />
+                    <span>رونوشت</span>
                   </button>
                   <button class="btn-action delete" title="حذف" on:click={() => handleDelete(letItem.id, letItem.letterNumber)}>
-                    🗑️
+                    <Trash2 size={14} />
                   </button>
                 </div>
               </td>

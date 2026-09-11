@@ -2,6 +2,8 @@
   import { onMount } from 'svelte';
   import { getDatabase, type OfficialLetter, type Client } from '../../services/db';
   import { getTodayPersianDate, generateLetterNumber } from '../../utils/persianDate';
+  import { generateUUID, isValidUUID } from '../../utils/uuid';
+  import { Printer, Save, ArrowRight, Sparkles } from 'lucide-svelte';
 
   export let letterId: string | null = null;
   export let onNavigate: (tab: string, param?: string) => void;
@@ -11,7 +13,7 @@
   let saving = false;
 
   let letter: OfficialLetter = {
-    id: 'let-' + Date.now(),
+    id: generateUUID(),
     letterNumber: generateLetterNumber(),
     letterDate: getTodayPersianDate(),
     attachment: 'ندارد',
@@ -111,6 +113,10 @@
       return;
     }
 
+    if (!isValidUUID(letter.id)) {
+      letter.id = generateUUID();
+    }
+
     saving = true;
     try {
       const db = getDatabase();
@@ -121,9 +127,10 @@
       } else {
         onNavigate('letters');
       }
-    } catch (e) {
+    } catch (e: any) {
       console.error('Failed to save letter', e);
-      alert('خطا در ذخیره نامه رسمی');
+      const msg = e?.message || e?.details || 'خطا در ذخیره نامه رسمی';
+      alert(`خطا در ذخیره نامه: ${msg}`);
     } finally {
       saving = false;
     }
@@ -138,13 +145,16 @@
     </div>
     <div class="header-actions">
       <button class="btn btn-outline" on:click={() => onNavigate('letters')}>
-        انصراف و بازگشت
+        <ArrowRight size={16} />
+        <span>انصراف و بازگشت</span>
       </button>
       <button class="btn btn-secondary" disabled={saving} on:click={() => handleSave(true)}>
-        ذخیره و چاپ روی سربرگ 🖨️
+        <Printer size={16} />
+        <span>ذخیره و چاپ روی سربرگ</span>
       </button>
       <button class="btn btn-primary" disabled={saving} on:click={() => handleSave(false)}>
-        {saving ? 'در حال ذخیره...' : 'ذخیره نامه'}
+        <Save size={16} />
+        <span>{saving ? 'در حال ذخیره...' : 'ذخیره نامه'}</span>
       </button>
     </div>
   </div>
@@ -154,7 +164,10 @@
   {:else}
     <!-- Template Preset Bar -->
     <div class="template-selector-card">
-      <span class="tmpl-title">💡 استفاده از قالب‌های آماده:</span>
+      <div class="tmpl-title">
+        <Sparkles size={16} />
+        <span>استفاده از قالب‌های آماده:</span>
+      </div>
       <div class="tmpl-buttons">
         {#each templates as tmpl}
           <button type="button" class="tmpl-btn" on:click={() => applyTemplate(tmpl.id)}>
@@ -289,13 +302,16 @@
       <!-- Actions -->
       <div class="bottom-actions">
         <button class="btn btn-outline" on:click={() => onNavigate('letters')}>
-          انصراف
+          <ArrowRight size={16} />
+          <span>انصراف</span>
         </button>
         <button class="btn btn-secondary" disabled={saving} on:click={() => handleSave(true)}>
-          ذخیره و مشاهده پیش‌نمایش چاپ سربرگ A4 🖨️
+          <Printer size={16} />
+          <span>ذخیره و پیش‌نمایش چاپ سربرگ A4</span>
         </button>
         <button class="btn btn-primary" disabled={saving} on:click={() => handleSave(false)}>
-          {saving ? 'در حال ذخیره...' : 'ذخیره نامه رسمی'}
+          <Save size={16} />
+          <span>{saving ? 'در حال ذخیره...' : 'ذخیره نامه رسمی'}</span>
         </button>
       </div>
     </div>
@@ -336,6 +352,10 @@
   }
 
   .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     padding: 10px 18px;
     border-radius: 10px;
     font-size: 13.5px;
@@ -371,6 +391,9 @@
     font-size: 13px;
     font-weight: 700;
     color: #334155;
+    display: flex;
+    align-items: center;
+    gap: 6px;
   }
 
   .tmpl-buttons {
