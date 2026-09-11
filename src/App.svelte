@@ -40,7 +40,8 @@
         if (isAdminRoute) {
           handleExitAdmin();
         } else {
-          window.location.hash = '#/admin';
+          window.history.pushState({}, '', '/admin');
+          checkRoute();
         }
       }
     };

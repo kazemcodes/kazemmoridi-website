@@ -1,3 +1,7 @@
+<script lang="ts">
+  // WhyUs component
+</script>
+
 <section class="section section-alt" id="why-us">
   <div class="container">
     <div class="section-header">

@@ -21,9 +21,26 @@
   let isAuthenticated = false;
   let checkingAuth = true;
 
-  function parseHashRoute() {
+  function parseRoute() {
     if (typeof window === 'undefined') return;
+    const path = window.location.pathname;
     const hash = window.location.hash;
+
+    // Check pathname first: /admin/tab/param
+    if (path.startsWith('/admin')) {
+      const parts = path.replace('/admin', '').split('/').filter(Boolean);
+      if (parts.length > 0) {
+        activeTab = parts[0];
+        activeParam = parts[1] || null;
+        return;
+      } else {
+        activeTab = 'dashboard';
+        activeParam = null;
+        return;
+      }
+    }
+
+    // Fallback support for legacy hash if someone typed #/admin/...
     if (hash.startsWith('#/admin')) {
       const parts = hash.replace('#/admin', '').split('/').filter(Boolean);
       if (parts.length > 0) {
@@ -47,24 +64,28 @@
 
   onMount(() => {
     checkAuthStatus();
-    parseHashRoute();
-    window.addEventListener('hashchange', parseHashRoute);
-    return () => window.removeEventListener('hashchange', parseHashRoute);
+    parseRoute();
+    window.addEventListener('popstate', parseRoute);
+    window.addEventListener('hashchange', parseRoute);
+    return () => {
+      window.removeEventListener('popstate', parseRoute);
+      window.removeEventListener('hashchange', parseRoute);
+    };
   });
 
   function handleNavigate(tab: string, param?: string) {
     activeTab = tab;
     activeParam = param || null;
     if (typeof window !== 'undefined') {
-      const newHash = param ? `#/admin/${tab}/${param}` : `#/admin/${tab}`;
-      window.location.hash = newHash;
+      const cleanPath = param ? `/admin/${tab}/${param}` : (tab === 'dashboard' ? '/admin' : `/admin/${tab}`);
+      window.history.pushState({}, '', cleanPath);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }
 
   function handleLoginSuccess() {
     isAuthenticated = true;
-    parseHashRoute();
+    parseRoute();
   }
 
   async function handleLogout() {
@@ -73,7 +94,7 @@
     activeTab = 'dashboard';
     activeParam = null;
     if (typeof window !== 'undefined') {
-      window.location.hash = '#/admin';
+      window.history.pushState({}, '', '/admin');
     }
   }
 

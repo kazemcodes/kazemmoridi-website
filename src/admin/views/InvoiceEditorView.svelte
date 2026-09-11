@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { getDatabase, type Invoice, type InvoiceItem, type Client } from '../../services/db';
+  import { getDatabase, type Invoice, type Client } from '../../services/db';
   import { getTodayPersianDate, generateInvoiceNumber } from '../../utils/persianDate';
   import { numberToPersianWords, formatPrice } from '../../utils/numberToWords';
   import { toPersianDigits } from '../../utils/persianDigits';

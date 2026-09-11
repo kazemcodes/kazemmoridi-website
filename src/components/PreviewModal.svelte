@@ -102,11 +102,19 @@
       <!-- Preview Viewport Frame -->
       <div class="modal-viewport-area">
         <div class="viewport-device-frame" class:frame-mobile={deviceMode === 'mobile'}>
-          {#if iframeLoading}
+          {#if iframeError}
+            <div class="preview-error-state">
+              <div class="error-icon">🔒</div>
+              <p>امکان نمایش مستقیم در فریم به دلیل محدودیت‌های امنیتی وب‌سایت مقصد (X-Frame-Options) وجود ندارد.</p>
+              <a href={project.url} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                مشاهده مستقیم وب‌سایت در پنجره جدید ↗
+              </a>
+            </div>
+          {:else if iframeLoading}
             <div class="preview-loading-spinner">
               <div class="spinner"></div>
               <p>در حال بارگذاری پیش‌نمایش زنده وب‌سایت...</p>
-              <span class="loading-hint">اگر سایت به دلیل سیاست‌های امنیتی مرورگر باز نشد، از دکمه «مشاهده در تب جدید» استفاده کنید.</span>
+              <span class="loading-hint">اگر سایت باز نشد، از دکمه «مشاهده در تب جدید» استفاده کنید.</span>
             </div>
           {/if}
 

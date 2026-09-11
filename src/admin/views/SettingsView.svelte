@@ -4,30 +4,16 @@
     getDatabase,
     getDatabaseCredentials,
     setDatabaseCredentials,
+    getEnvStudioProfile,
     type StudioProfile
   } from '../../services/db';
 
   let supabaseUrl = '';
   let supabaseAnonKey = '';
   let isConfigured = false;
-  let activeProvider = '';
+  let activeProvider = 'Local (Offline)';
 
-  let profile: StudioProfile = {
-    brandName: 'KM Studio — استودیو مریدی',
-    managerName: 'کاظم مریدی',
-    nationalId: '۳۳۸۰۴۵۶۷۸۹',
-    economicCode: '۴۱۱۶۸۷۴۵۱۲',
-    registrationNumber: '۱۴۰۴/۵۲',
-    phone: '+989170284463',
-    phoneDisplay: '۰۹۱۷ ۰۲۸ ۴۴۶۳',
-    email: 'kazem.codes@gmail.com',
-    website: 'https://kazemmoridi.ir',
-    shebaNumber: 'IR650170000000123456789001',
-    cardNumber: '۶۰۳۷ ۹۹۷۱ ۲۳۴۵ ۶۷۸۹',
-    bankName: 'بانک ملی ایران — شعبه مرکزی',
-    address: 'هرمزگان، ایران — ارائه خدمات توسعه و طراحی نرم‌افزار در سراسر کشور',
-    postalCode: '۷۹۱۶۸۵۴۳۲۱'
-  };
+  let profile: StudioProfile = getEnvStudioProfile();
 
   let savingDb = false;
   let savingProfile = false;
@@ -38,10 +24,34 @@
     supabaseAnonKey = creds.anonKey;
     isConfigured = creds.isConfigured;
 
+    const envDefaults = getEnvStudioProfile();
+    profile = { ...envDefaults, ...profile };
+
     const db = getDatabase();
     activeProvider = db.providerName;
     try {
-      profile = await db.getStudioProfile();
+      const stored = await db.getStudioProfile();
+      if (stored) {
+        // Merge stored with env so empty values fall back to .env
+        profile = {
+          brandName: stored.brandName || envDefaults.brandName,
+          managerName: stored.managerName || envDefaults.managerName,
+          nationalId: stored.nationalId || envDefaults.nationalId,
+          economicCode: stored.economicCode || envDefaults.economicCode,
+          registrationNumber: stored.registrationNumber || envDefaults.registrationNumber,
+          phone: stored.phone || envDefaults.phone,
+          phoneDisplay: stored.phoneDisplay || envDefaults.phoneDisplay,
+          email: stored.email || envDefaults.email,
+          website: stored.website || envDefaults.website,
+          shebaNumber: stored.shebaNumber || envDefaults.shebaNumber,
+          cardNumber: stored.cardNumber || envDefaults.cardNumber,
+          bankName: stored.bankName || envDefaults.bankName,
+          address: stored.address || envDefaults.address,
+          postalCode: stored.postalCode || envDefaults.postalCode,
+          logoUrl: stored.logoUrl || envDefaults.logoUrl,
+          stampSignatureUrl: stored.stampSignatureUrl || envDefaults.stampSignatureUrl
+        };
+      }
     } catch (e) {
       console.error('Failed to load studio profile', e);
     }
@@ -107,7 +117,7 @@
         <div class="header-with-badge">
           <h3>۱. اتصال به پایگاه‌داده (Database Connection)</h3>
           <span class="db-status-badge" class:active={isConfigured}>
-            {isConfigured ? 'دیتابیس ابری Supabase (فعال)' : 'دیتابیس محلی LocalStorage (فعال)'}
+            ارائه‌دهنده فعال: {activeProvider}
           </span>
         </div>
       </div>

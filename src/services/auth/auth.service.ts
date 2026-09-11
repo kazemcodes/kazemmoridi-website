@@ -18,11 +18,21 @@ interface AttemptTracker {
   lockedUntil: number;
 }
 
-let attemptTracker: AttemptTracker = {
-  count: 0,
-  lastAttempt: 0,
-  lockedUntil: 0
-};
+const ATTEMPT_STORAGE_KEY = 'km_studio_login_attempts';
+
+function getAttemptTracker(): AttemptTracker {
+  try {
+    const raw = sessionStorage.getItem(ATTEMPT_STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch {}
+  return { count: 0, lastAttempt: 0, lockedUntil: 0 };
+}
+
+function saveAttemptTracker(tracker: AttemptTracker): void {
+  try {
+    sessionStorage.setItem(ATTEMPT_STORAGE_KEY, JSON.stringify(tracker));
+  } catch {}
+}
 
 export class AuthService {
   private static getSupabaseClient(): SupabaseClient | null {
@@ -54,13 +64,14 @@ export class AuthService {
 
   static async login(password: string, email?: string): Promise<AuthResult> {
     const now = Date.now();
+    const tracker = getAttemptTracker();
 
     // Check brute-force lockout
-    if (attemptTracker.lockedUntil > now) {
-      const remainingSeconds = Math.ceil((attemptTracker.lockedUntil - now) / 1000);
+    if (tracker.lockedUntil > now) {
+      const remainingSeconds = Math.ceil((tracker.lockedUntil - now) / 1000);
       return {
         success: false,
-        error: `تعداد تلاش‌های ناموفق بیش از حد مجاز بود. لطفاً ${remainingSeconds} ثانیه دیگر مجدداً تلاش فرمایید.`
+        error: `تعداد تلاش‌های ناموفق بیش از حد مجاز بود. به دلایل امنیتی ورود موقتاً مسدود شده است. لطفاً ${remainingSeconds} ثانیه دیگر مجدداً تلاش فرمایید.`
       };
     }
 
@@ -73,9 +84,17 @@ export class AuthService {
     const inputEmail = (email || '').trim().toLowerCase();
     const inputPass = password.trim();
 
+    // Both email and password are required
+    if (!inputEmail || !inputPass) {
+      return {
+        success: false,
+        error: 'وارد کردن نام کاربری / ایمیل و گذرواژه الزامی است.'
+      };
+    }
+
     // 1. Check direct .env / Master credentials first
     const isDirectMatch = (inputPass === envPass || inputPass === storedMaster) &&
-      (!inputEmail || inputEmail === envEmail);
+      (inputEmail === envEmail);
 
     if (isDirectMatch) {
       this.resetAttempts();
@@ -90,8 +109,8 @@ export class AuthService {
     if (supabase && email) {
       try {
         const { data, error } = await supabase.auth.signInWithPassword({
-          email: email.trim(),
-          password: password.trim()
+          email: inputEmail,
+          password: inputPass
         });
 
         if (!error && data.session) {
@@ -137,20 +156,22 @@ export class AuthService {
 
   private static recordFailedAttempt(): void {
     const now = Date.now();
-    attemptTracker.count++;
-    attemptTracker.lastAttempt = now;
+    const tracker = getAttemptTracker();
+    tracker.count++;
+    tracker.lastAttempt = now;
 
-    if (attemptTracker.count >= 5) {
-      attemptTracker.lockedUntil = now + 60000; // 60 seconds lockout
-      attemptTracker.count = 0;
+    if (tracker.count >= 5) {
+      tracker.lockedUntil = now + 60000; // 60 seconds lockout
+      tracker.count = 0;
     }
+    saveAttemptTracker(tracker);
   }
 
   private static resetAttempts(): void {
-    attemptTracker = {
+    saveAttemptTracker({
       count: 0,
       lastAttempt: 0,
       lockedUntil: 0
-    };
+    });
   }
 }

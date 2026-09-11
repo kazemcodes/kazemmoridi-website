@@ -40,6 +40,8 @@
       <div class="nav-menu">
         <a href="#services" class="nav-item">خدمات</a>
         <a href="#projects" class="nav-item">نمونه‌کارها</a>
+        <a href="#pipeline" class="nav-item">محصولات</a>
+        <a href="#calculator" class="nav-item">محاسبه هزینه</a>
         <a href="#why-us" class="nav-item">درباره ما</a>
         <a href="#contact" class="nav-item">تماس</a>
       </div>
@@ -167,7 +169,7 @@
   .nav-menu {
     display: none;
     align-items: center;
-    gap: 32px;
+    gap: 22px;
   }
 
   @media (min-width: 1024px) {

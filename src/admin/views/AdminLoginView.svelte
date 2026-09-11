@@ -1,7 +1,5 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import { AuthService } from '../../services/auth/auth.service';
-  import { getDatabaseCredentials } from '../../services/db';
 
   export let onLoginSuccess: () => void;
   export let onExit: () => void;
@@ -11,13 +9,6 @@
   let showPassword = false;
   let errorMsg = '';
   let submitting = false;
-
-  let isSupabaseConfigured = false;
-
-  onMount(() => {
-    const creds = getDatabaseCredentials();
-    isSupabaseConfigured = creds.isConfigured;
-  });
 
   async function handleSubmit() {
     errorMsg = '';
@@ -124,7 +115,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #0f172a;
+    background: radial-gradient(circle at 50% 20%, #1e293b 0%, #0f172a 100%);
     padding: 24px;
     direction: rtl;
     font-family: var(--font-fa);
@@ -132,14 +123,15 @@
 
   .login-card {
     width: 100%;
-    max-width: 440px;
+    max-width: 420px;
     background: #ffffff;
     border-radius: 20px;
-    padding: 36px 32px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+    padding: 40px 32px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 22px;
   }
 
   .login-header {
@@ -176,26 +168,6 @@
     color: #64748b;
     margin: 0;
     line-height: 1.6;
-  }
-
-  .mode-tag {
-    padding: 8px 12px;
-    border-radius: 8px;
-    font-size: 11.5px;
-    font-weight: 700;
-    text-align: center;
-  }
-
-  .supabase-tag {
-    background: #ecfdf5;
-    color: #059669;
-    border: 1px solid #a7f3d0;
-  }
-
-  .local-tag {
-    background: #eff6ff;
-    color: #1e40af;
-    border: 1px solid #bfdbfe;
   }
 
   .alert-error {

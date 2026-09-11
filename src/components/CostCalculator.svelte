@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { projectTypes, featureOptions, type ProjectTypeOption, type FeatureOption } from '../data/calculator';
-  import { contactData } from '../data/contacts';
+  import { projectTypes, featureOptions } from '../data/calculator';
   import { toPersianDigits } from '../utils/persianDigits';
 
   let selectedType: string = 'store';

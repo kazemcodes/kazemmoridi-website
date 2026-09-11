@@ -7,7 +7,6 @@
   let formService = '';
   let formMessage = '';
   let formSubmitted = false;
-  let formEl: HTMLElement | null = null;
 
   function parseHashOrSearch() {
     if (typeof window === 'undefined') return;
@@ -138,7 +137,7 @@
       </div>
 
       <!-- Contact Form -->
-      <div class="contact-form-wrapper" bind:this={formEl}>
+      <div class="contact-form-wrapper">
         {#if formSubmitted}
           <div class="success-message">
             <div class="success-icon"></div>
