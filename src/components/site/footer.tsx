@@ -39,9 +39,6 @@ export function SiteFooter() {
           <span>{contact.location[locale]}</span>
         </div>
       </Container>
-      <div dir="ltr" className="pointer-events-none select-none whitespace-nowrap text-center text-[22vw] font-bold leading-snug text-surface-2" aria-hidden>
-        KM Studio
-      </div>
     </footer>
   );
 }
