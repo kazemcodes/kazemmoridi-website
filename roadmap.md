@@ -11,3 +11,4 @@
 - [x] Fix unclear "۱٫۵ث" load-time stats
 - [x] Design new KM Studio logo (user picked concept i: م with diamond)
 - [x] Transparent logo background, larger header logo
+- [ ] Project inquiry form on About contact banner (name, contact, budget, timeline, brief)

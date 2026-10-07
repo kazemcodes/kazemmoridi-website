@@ -48,7 +48,7 @@ function AboutPage() {
         <Marquee items={capabilities} />
       </div>
       <StatsBand />
-      <CtaBand />
+      <CtaBand inquiry />
     </>
   );
 }

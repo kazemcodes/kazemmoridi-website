@@ -95,6 +95,7 @@ export interface ContactMessage {
   name: string;
   contact: string;
   budget?: string | undefined;
+  timeline?: string | undefined;
   message: string;
   locale: string;
   read: boolean;
@@ -105,6 +106,7 @@ export interface NewContactMessage {
   name: string;
   contact: string;
   budget?: string | undefined;
+  timeline?: string | undefined;
   message: string;
   locale: string;
 }

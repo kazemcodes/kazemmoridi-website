@@ -50,6 +50,7 @@ export const dictionary = {
   },
   ctaBand: {
     title: { fa: "پروژه بعدی شما، از همین‌جا.", en: "Your next product starts here." },
+    inquiryTitle: { fa: "فرم درخواست پروژه", en: "Project inquiry" },
     body: {
       fa: "ایده یا نیازتان را بگویید؛ ظرف ۲۴ ساعت با برآورد شفاف زمان و هزینه پاسخ می‌دهیم.",
       en: "Tell us what you need — we reply within 24 hours with a transparent time and cost estimate.",
@@ -63,6 +64,8 @@ export const dictionary = {
     name: { fa: "نام شما", en: "Your name" },
     email: { fa: "ایمیل یا شماره تماس", en: "Email or phone" },
     budget: { fa: "بودجه تقریبی", en: "Approximate budget" },
+    timeline: { fa: "زمان‌بندی پروژه", en: "Project timeline" },
+    note: { fa: "توضیح کوتاه پروژه", en: "Project brief" },
     message: { fa: "درباره پروژه بگویید", en: "Tell us about the project" },
     send: { fa: "ارسال پیام", en: "Send message" },
     sending: { fa: "در حال ارسال…", en: "Sending…" },

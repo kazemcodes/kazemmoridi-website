@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS public.contact_messages (
   name TEXT NOT NULL CHECK (char_length(name) BETWEEN 1 AND 120),
   contact TEXT NOT NULL CHECK (char_length(contact) BETWEEN 3 AND 160),
   budget TEXT CHECK (budget IS NULL OR char_length(budget) <= 80),
+  timeline TEXT CHECK (timeline IS NULL OR char_length(timeline) <= 80),
   message TEXT NOT NULL CHECK (char_length(message) BETWEEN 1 AND 4000),
   locale TEXT NOT NULL DEFAULT 'fa',
   read BOOLEAN NOT NULL DEFAULT false,
