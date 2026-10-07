@@ -1,0 +1,14 @@
+# KM Studio roadmap
+- [x] Public site fa/en (3D hero, services, work, process, pricing, about, contact)
+- [x] Clean architecture: domain ports + Supabase adapters
+- [x] Admin panel UI (messages, clients, invoices + print, letters + print, settings)
+- [ ] Connect existing Supabase — blocked: needs project URL + anon key, and running supabase/km-studio-security.sql
+- [x] GitHub PR #1 opened on redesign-km-studio
+- [x] Project previews: real screenshots (farmahan + GitHub repos; icount, kalakhash, dubakala, jonoobluxshop sites are offline)
+- [ ] More unique, less template-like UI components
+- [x] Add projects kafshpakucholo.ir and foolazhths.ir with screenshots
+- [x] Add IReader project with preview from GitHub images
+- [x] Fix unclear "۱٫۵ث" load-time stats
+- [x] Design new KM Studio logo (user picked concept i: م with diamond)
+- [x] Transparent logo background, larger header logo
+- [x] Project inquiry form on About contact banner (name, contact, budget, timeline, brief) — storage blocked until Supabase is connected
