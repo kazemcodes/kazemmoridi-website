@@ -19,7 +19,7 @@ export interface AddOn {
 
 export const projectTypes: ProjectType[] = [
   { id: "store", title: { fa: "فروشگاه اینترنتی", en: "Online store" }, desc: { fa: "درگاه پرداخت، فاکتور و انبارداری", en: "Payments, invoicing and inventory" }, basePrice: 15, baseDays: 14 },
-  { id: "platform", title: { fa: "سامانه اختصاصی", en: "Custom platform" }, desc: { fa: "پرتال، سیستم آموزشی، رزرو یا SaaS", en: "Portal, LMS, booking or SaaS" }, basePrice: 24, baseDays: 25 },
+  { id: "platform", title: { fa: "سامانه اختصاصی", en: "Custom platform" }, desc: { fa: "پرتال، سیستم آموزشی، رزرو یا SaaS", en: "Portal, LMS, booking or SaaS" }, basePrice: 74, baseDays: 25 },
   { id: "corporate", title: { fa: "وب‌سایت شرکتی", en: "Company website" }, desc: { fa: "معرفی برند و جذب لید", en: "Brand presence and lead capture" }, basePrice: 9, baseDays: 10 },
   { id: "app", title: { fa: "اپلیکیشن / PWA", en: "App / PWA" }, desc: { fa: "موبایل و دسکتاپ با فلاتر", en: "Mobile and desktop with Flutter" }, basePrice: 18, baseDays: 20 },
 ];
