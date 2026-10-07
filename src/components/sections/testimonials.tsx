@@ -1,55 +1,47 @@
-import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useState } from "react";
-import { toFaDigits, useLocale } from "@/i18n/locale";
+import { motion } from "motion/react";
+import { CheckCheck } from "lucide-react";
+import { useLocale } from "@/i18n/locale";
 import { testimonials } from "@/content/testimonials";
 import { cn } from "@/lib/utils";
 
+/** Client feedback as a messenger thread — the way Iranian clients actually talk to studios. */
 export function Testimonials() {
   const locale = useLocale();
-  const [i, setI] = useState(0);
-  useEffect(() => {
-    const t = setInterval(() => setI((v) => (v + 1) % testimonials.length), 8000);
-    return () => clearInterval(t);
-  }, []);
-  const t = testimonials[i] ?? testimonials[0]!;
-  const fmt = (n: number) => (locale === "fa" ? toFaDigits(String(n).padStart(2, "0")) : String(n).padStart(2, "0"));
-
   return (
-    <div className="grid gap-10 md:grid-cols-12">
-      <div className="min-h-[18rem] md:col-span-9">
-        <AnimatePresence mode="wait">
-          <motion.figure
-            key={i}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.6 }}
-          >
-            <blockquote className="text-2xl leading-snug md:text-4xl">
-              <span className="text-ember">“</span>
-              {t.quote[locale]}
-              <span className="text-ember">”</span>
-            </blockquote>
-            <figcaption className="mt-8 text-sm">
-              <span className="text-foreground">{t.author[locale]}</span>
-              <span className="mx-2 text-muted-foreground">—</span>
-              <span dir="ltr" className="font-mono text-muted-foreground">{t.company[locale]}</span>
-            </figcaption>
-          </motion.figure>
-        </AnimatePresence>
-      </div>
-      <div className="flex items-end gap-3 md:col-span-3 md:flex-col md:items-end">
-        {testimonials.map((_, idx) => (
-          <button
-            key={idx}
-            type="button"
-            onClick={() => setI(idx)}
-            aria-label={`Testimonial ${idx + 1}`}
-            className={cn("font-mono text-sm transition-colors", idx === i ? "text-ember" : "text-muted-foreground hover:text-foreground")}
-          >
-            {fmt(idx + 1)}
-          </button>
-        ))}
+    <div className="mx-auto max-w-3xl rounded-3xl bg-surface p-4 md:p-8">
+      <div className="space-y-6">
+        {testimonials.map((t, i) => {
+          const mine = i % 2 === 1;
+          const initial = t.author[locale].trim().charAt(0);
+          return (
+            <motion.figure
+              key={i}
+              initial={{ opacity: 0, y: 24, scale: 0.97 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-10%" }}
+              transition={{ duration: 0.45, delay: i * 0.12 }}
+              className={cn("flex items-end gap-3", mine && "flex-row-reverse")}
+            >
+              <span className={cn("grid h-11 w-11 shrink-0 place-items-center rounded-full text-lg font-bold", mine ? "bg-cyan text-primary-foreground" : "bg-ember text-primary-foreground")}>
+                {initial}
+              </span>
+              <div
+                className={cn(
+                  "max-w-[85%] rounded-3xl px-6 py-5 shadow-soft",
+                  mine ? "rounded-ee-md bg-foreground text-background" : "rounded-es-md bg-card",
+                )}
+              >
+                <blockquote className="text-lg leading-relaxed">{t.quote[locale]}</blockquote>
+                <figcaption className={cn("mt-3 flex items-center justify-between gap-4 text-xs", mine ? "text-background/60" : "text-muted-foreground")}>
+                  <span>
+                    <span className="font-bold">{t.author[locale]}</span> · <span dir="ltr">{t.company[locale]}</span>
+                  </span>
+                  <CheckCheck className="h-4 w-4 text-cyan" aria-hidden />
+                </figcaption>
+              </div>
+            </motion.figure>
+          );
+        })}
       </div>
     </div>
   );

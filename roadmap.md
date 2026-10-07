@@ -6,3 +6,5 @@
 - [x] GitHub PR #1 opened on redesign-km-studio
 - [x] Project previews: real screenshots (farmahan + GitHub repos; icount, kalakhash, dubakala, jonoobluxshop sites are offline)
 - [ ] More unique, less template-like UI components
+- [x] Add projects kafshpakucholo.ir and foolazhths.ir with screenshots
+- [x] Add IReader project with preview from GitHub images

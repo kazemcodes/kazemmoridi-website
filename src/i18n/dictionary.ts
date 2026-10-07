@@ -17,6 +17,14 @@ export const dictionary = {
     visit: { fa: "مشاهده سایت", en: "Visit site" },
     source: { fa: "کد منبع", en: "Source" },
   },
+  services: {
+    included: { fa: "چه چیزهایی تحویل می‌گیرید", en: "What you get" },
+  },
+  process: {
+    step: { fa: "مرحله", en: "Step" },
+    of: { fa: "از", en: "of" },
+    next: { fa: "مرحله بعد", en: "Next step" },
+  },
   hero: {
     eyebrow: { fa: "استودیو طراحی و توسعه وب — هرمزگان", en: "Web design & engineering studio — Iran" },
     title: {
@@ -63,6 +71,10 @@ export const dictionary = {
   },
   pricing: {
     type: { fa: "نوع پروژه", en: "Project type" },
+    receipt: { fa: "پیش‌فاکتور", en: "Quote" },
+    base: { fa: "هزینه پایه", en: "Base price" },
+    total: { fa: "جمع برآورد", en: "Estimated total" },
+    receiptNo: { fa: "شماره", en: "No." },
     features: { fa: "امکانات اضافه", en: "Add-ons" },
     estimate: { fa: "برآورد اولیه", en: "Initial estimate" },
     currency: { fa: "میلیون تومان", en: "M Toman" },
