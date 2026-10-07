@@ -17,6 +17,14 @@ export function ProjectCover({ project, className }: { project: Project; classNa
           <span className="h-2.5 w-2.5 rounded-full bg-chart-5" />
           <span className="ms-3 flex-1 truncate rounded-md bg-surface px-3 py-1 text-[11px] text-muted-foreground">{project.displayUrl}</span>
         </div>
+        {project.preview ? (
+          <img
+            src={project.preview}
+            alt={project.title.en}
+            loading="lazy"
+            className="min-h-0 w-full flex-1 object-cover object-top transition-transform duration-[1.5s] ease-out group-hover:scale-[1.03]"
+          />
+        ) : (
         <div className="flex flex-1 flex-col gap-3 p-5">
           <div className="h-16 rounded-lg" style={{ background: `linear-gradient(135deg, ${tint(0.62, 0.16)}, ${tint(0.75, 0.12)})` }} />
           <div className="grid flex-1 grid-cols-3 gap-3">
@@ -27,6 +35,7 @@ export function ProjectCover({ project, className }: { project: Project; classNa
           <div className="h-2 w-2/3 rounded-full bg-surface-2" />
           <div className="h-2 w-1/2 rounded-full bg-surface-2" />
         </div>
+        )}
       </div>
     </div>
   );

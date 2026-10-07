@@ -21,6 +21,8 @@ export interface Project {
   stats?: Localized<{ label: string; value: string }[]>;
   /** Hue (oklch) used for the project's generated cover art. */
   hue: number;
+  /** Screenshot of the live site under /public, when one could be captured. */
+  preview?: string;
 }
 
 export const categoryLabels: Record<ProjectCategory, Localized<string>> = {
@@ -38,6 +40,7 @@ export const statusLabels: Record<ProjectStatus, Localized<string>> = {
 export const projects: Project[] = [
   {
     slug: "farmahan",
+    preview: "/projects/farmahan.jpg",
     year: "2025",
     category: "websites",
     status: "live",
@@ -167,6 +170,7 @@ export const projects: Project[] = [
   },
   {
     slug: "elementor-copier",
+    preview: "/projects/elementor-copier.jpg",
     year: "2024",
     category: "tools",
     status: "open-source",
@@ -189,6 +193,7 @@ export const projects: Project[] = [
   },
   {
     slug: "gradle-mirror",
+    preview: "/projects/gradle-mirror.jpg",
     year: "2024",
     category: "tools",
     status: "open-source",
@@ -211,6 +216,7 @@ export const projects: Project[] = [
   },
   {
     slug: "skill-tree",
+    preview: "/projects/skill-tree.jpg",
     year: "2025",
     category: "tools",
     status: "open-source",
