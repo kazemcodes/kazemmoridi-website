@@ -9,4 +9,5 @@
 - [x] Add projects kafshpakucholo.ir and foolazhths.ir with screenshots
 - [x] Add IReader project with preview from GitHub images
 - [x] Fix unclear "۱٫۵ث" load-time stats
-- [ ] Design new KM Studio logo (2 concepts, user picks)
+- [x] Design new KM Studio logo (user picked concept i: م with diamond)
+- [x] Transparent logo background, larger header logo
