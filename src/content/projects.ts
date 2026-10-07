@@ -110,7 +110,7 @@ export const projects: Project[] = [
     url: "http://kalakhash.ir",
     displayUrl: "kalakhash.ir",
     hue: 15,
-    title: { fa: "فروشگاه عطر کالا خش", en: "Kalakhash Perfumery" },
+    title: { fa: "فروشگاه عطر کالاخش", en: "Kalakhash Perfumery" },
     discipline: { fa: "فروشگاه آنلاین", en: "E-commerce" },
     tagline: {
       fa: "فروشگاه SPA مدرن با لاراول و ریکت.",
@@ -178,7 +178,7 @@ export const projects: Project[] = [
     displayUrl: "github.com/kazemcodes",
     githubUrl: "https://github.com/kazemcodes/Elementor-Copier",
     hue: 330,
-    title: { fa: "المنتور کپی‌یر", en: "Elementor Copier" },
+    title: { fa: "المنتور کاپیر", en: "Elementor Copier" },
     discipline: { fa: "افزونه کروم", en: "Chrome extension" },
     tagline: { fa: "انتقال آنی سکشن‌های المنتور میان سایت‌ها.", en: "Copy Elementor sections across sites instantly." },
     description: {
@@ -247,15 +247,15 @@ export const projects: Project[] = [
     url: "https://kafshpakucholo.ir/",
     displayUrl: "kafshpakucholo.ir",
     hue: 20,
-    title: { fa: "کفش پا کوچولو", en: "Pa Kucholo Kids Shoes" },
+    title: { fa: "کفش پاکوچولو", en: "Pa Kucholo Kids Shoes" },
     discipline: { fa: "فروشگاه اینترنتی", en: "E-commerce" },
     tagline: { fa: "فروشگاه تخصصی کفش و کتونی بچگانه.", en: "A specialist online store for kids' shoes." },
     description: {
-      fa: "فروشگاه کفش اسکیتی، چراغدار و بندپیچی وارداتی با استوری‌های ویدیویی محصول، ضمانت تعویض سایز و ارسال سریع.",
+      fa: "فروشگاه کفش‌های اسکیت، چراغ‌دار و بندپیچی وارداتی با استوری‌های ویدیویی محصول، ضمانت تعویض سایز و ارسال سریع.",
       en: "Imported skate, LED and twist-lace kids' shoes with video product stories, size-exchange guarantee and fast shipping.",
     },
     highlights: {
-      fa: ["استوری ویدیویی محصولات", "ضمانت ۷ روزه تعویض سایز"],
+      fa: ["استوری ویدیویی محصولات", "ضمانت تعویض سایز تا ۷ روز"],
       en: ["Video product stories", "7-day size exchange"],
     },
     stack: ["Laravel", "E-commerce", "SEO"],
@@ -272,7 +272,7 @@ export const projects: Project[] = [
     hue: 230,
     title: { fa: "هنرستان فرهنگ فولاژ", en: "Farhang Foolazh Technical School" },
     discipline: { fa: "سامانه آموزشی", en: "Education platform" },
-    tagline: { fa: "نخستین هنرستان صنعت‌محور غیرانتفاعی خیری.", en: "The first industry-led charitable technical school." },
+    tagline: { fa: "نخستین هنرستان صنعت‌محور غیرانتفاعی کشور.", en: "The first industry-led charitable technical school." },
     description: {
       fa: "پرتال هنرستان‌ها و رشته‌های فنی فولاژ با معرفی رشته‌ها، ثبت‌نام آنلاین و سایت جداگانه برای هر هنرستان.",
       en: "Portal for Foolazh's technical schools and majors, with online enrolment and a dedicated site per school.",
@@ -298,11 +298,11 @@ export const projects: Project[] = [
     discipline: { fa: "اپلیکیشن اندروید", en: "Android app" },
     tagline: { fa: "رمان‌خوان رایگان و متن‌باز برای اندروید.", en: "A free, open-source novel reader for Android." },
     description: {
-      fa: "کتابخانه، منابع افزونه‌ای، خواندن با تم‌های دلخواه، متن به گفتار و ترجمه — ساخته‌شده با Kotlin و Jetpack Compose.",
+      fa: "کتابخانه، منابع افزونه‌ای، خواندن با تم‌های دلخواه، تبدیل متن به گفتار و ترجمه — ساخته‌شده با Kotlin و Jetpack Compose.",
       en: "Library, extension sources, themed reader, text-to-speech and translation — built with Kotlin and Jetpack Compose.",
     },
     highlights: {
-      fa: ["متن به گفتار و ترجمه", "سیستم افزونه منابع"],
+      fa: ["تبدیل متن به گفتار و ترجمه", "سیستم افزونه‌های منابع"],
       en: ["Text-to-speech and translation", "Extension source system"],
     },
     stack: ["Kotlin", "Jetpack Compose", "Android"],

@@ -9,7 +9,7 @@ export interface Testimonial {
 export const testimonials: Testimonial[] = [
   {
     quote: {
-      fa: "سامانه فرماهان هزینه‌های گزاف نرم‌افزار مدرسه را از بین برد. سبک، سریع و هماهنگ با نیاز مدارس فنی است و پشتیبانی همیشه در دسترس بوده.",
+      fa: "سامانه فرهنگ ماهان هزینه‌های گزاف نرم‌افزار مدرسه را از بین برد. سبک، سریع و هماهنگ با نیاز مدارس فنی است و پشتیبانی همیشه در دسترس بوده.",
       en: "Farmahan wiped out our huge school-software costs. It's light, fast and fits technical colleges perfectly — and support has always been there.",
     },
     author: { fa: "مدیریت هنرستان‌های فرهنگ ماهان", en: "Director, Farhang Mahan Colleges" },
@@ -20,7 +20,7 @@ export const testimonials: Testimonial[] = [
       fa: "سرعت برای ما حیاتی بود. با لاراول و ریکت، صفحات و ثبت سفارش فوق‌العاده سریع شد و مشتری بدون معطلی خرید می‌کند.",
       en: "Speed was critical for us. With Laravel and React, pages and checkout became incredibly fast — customers buy without waiting.",
     },
-    author: { fa: "مالک فروشگاه کالا خش", en: "Owner, Kalakhash" },
+    author: { fa: "مالک فروشگاه کالاخش", en: "Owner, Kalakhash" },
     company: { fa: "kalakhash.ir", en: "kalakhash.ir" },
   },
   {
