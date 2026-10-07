@@ -8,3 +8,4 @@
 - Three.js scenes must be lazy-loaded and fall back to a static visual for SSR, no-WebGL and reduced motion.
 - Admin (`/admin`, ssr:false) authorizes via Supabase Auth + `is_admin()` RPC; RLS in `supabase/km-studio-security.sql` is the real security boundary.
 - Pure business logic (invoice math, price estimate, Persian number words) lives outside components so it is testable.
+- R3F scenes in components/three use createElement (not JSX) for three.js/drei elements — the dev source inspector injects data-tsd-source into JSX, which crashes R3F.
