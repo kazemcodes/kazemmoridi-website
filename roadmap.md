@@ -8,3 +8,5 @@
 - [ ] More unique, less template-like UI components
 - [x] Add projects kafshpakucholo.ir and foolazhths.ir with screenshots
 - [x] Add IReader project with preview from GitHub images
+- [x] Fix unclear "۱٫۵ث" load-time stats
+- [ ] Design new KM Studio logo (2 concepts, user picks)

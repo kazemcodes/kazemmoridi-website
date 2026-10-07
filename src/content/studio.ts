@@ -30,7 +30,7 @@ export const socials = [
 export const stats: { value: Localized<string>; label: Localized<string> }[] = [
   { value: { fa: "+۱۵", en: "15+" }, label: { fa: "محصول تحویل‌شده", en: "Products shipped" } },
   { value: { fa: "۵", en: "5" }, label: { fa: "هنرستان روی سامانه ما", en: "Colleges on our platform" } },
-  { value: { fa: "<۱٫۵ث", en: "<1.5s" }, label: { fa: "میانگین زمان لود", en: "Average load time" } },
+  { value: { fa: "زیر ۲ ثانیه", en: "Under 2s" }, label: { fa: "هدف سرعت بارگذاری", en: "Load speed target" } },
   { value: { fa: "+۸۷۰", en: "870+" }, label: { fa: "ستاره گیت‌هاب", en: "GitHub stars" } },
 ];
 

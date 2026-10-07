@@ -66,7 +66,7 @@ export const projects: Project[] = [
     stats: {
       fa: [
         { label: "مدارس", value: "۵" },
-        { label: "میانگین لود", value: "۱٫۲ث" },
+        { label: "زمان بارگذاری", value: "۱٫۲ ثانیه" },
         { label: "آپ‌تایم", value: "۹۹٫۹٪" },
       ],
       en: [
