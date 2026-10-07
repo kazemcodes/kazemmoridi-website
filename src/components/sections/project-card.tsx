@@ -1,31 +1,33 @@
 import { motion } from "motion/react";
 import { useRef } from "react";
 import { useLocale } from "@/i18n/locale";
-import { dictionary as d } from "@/i18n/dictionary";
 import { statusLabels, type Project } from "@/content/projects";
 import { LocaleLink } from "@/components/site/locale-link";
 import { cn } from "@/lib/utils";
 
-/** Generative cover art per project — data-driven hue, no stock imagery. */
+/** Browser-window mockup tinted per project — data-driven hue, no stock imagery. */
 export function ProjectCover({ project, className }: { project: Project; className?: string }) {
-  const initial = project.title.en.charAt(0);
+  const tint = (l: number, c: number, a = 1) => `oklch(${l} ${c} ${project.hue} / ${a})`;
   return (
-    <div
-      className={cn("grain relative overflow-hidden rounded-[var(--radius)] bg-surface", className)}
-      style={{
-        backgroundImage: `radial-gradient(80% 90% at 75% 20%, oklch(0.62 0.16 ${project.hue} / 0.85), transparent 60%), radial-gradient(60% 60% at 10% 100%, oklch(0.4 0.1 ${project.hue + 40} / 0.7), transparent 70%)`,
-      }}
-    >
-      <span
-        dir="ltr"
-        className="absolute -bottom-[0.18em] end-4 select-none font-display text-[16rem] font-bold leading-none text-bone/10 transition-transform duration-700 group-hover:-translate-y-4"
-        aria-hidden
-      >
-        {initial}
-      </span>
-      <span dir="ltr" className="absolute start-5 top-5 rounded-full bg-background/60 px-3 py-1 font-mono text-[11px] backdrop-blur">
-        {project.displayUrl}
-      </span>
+    <div className={cn("relative overflow-hidden rounded-2xl p-6 md:p-8", className)} style={{ background: tint(0.96, 0.03) }}>
+      <div dir="ltr" className="flex h-full flex-col overflow-hidden rounded-xl border border-line bg-card shadow-soft transition-transform duration-500 group-hover:-translate-y-2">
+        <div className="flex items-center gap-2 border-b border-line px-4 py-3">
+          <span className="h-2.5 w-2.5 rounded-full bg-ember/70" />
+          <span className="h-2.5 w-2.5 rounded-full bg-chart-3" />
+          <span className="h-2.5 w-2.5 rounded-full bg-chart-5" />
+          <span className="ms-3 flex-1 truncate rounded-md bg-surface px-3 py-1 text-[11px] text-muted-foreground">{project.displayUrl}</span>
+        </div>
+        <div className="flex flex-1 flex-col gap-3 p-5">
+          <div className="h-16 rounded-lg" style={{ background: `linear-gradient(135deg, ${tint(0.62, 0.16)}, ${tint(0.75, 0.12)})` }} />
+          <div className="grid flex-1 grid-cols-3 gap-3">
+            {[0.9, 0.93, 0.88].map((l, i) => (
+              <div key={i} className="rounded-lg" style={{ background: tint(l, 0.04) }} />
+            ))}
+          </div>
+          <div className="h-2 w-2/3 rounded-full bg-surface-2" />
+          <div className="h-2 w-1/2 rounded-full bg-surface-2" />
+        </div>
+      </div>
     </div>
   );
 }
@@ -53,16 +55,16 @@ export function ProjectCard({ project, large }: { project: Project; large?: bool
       viewport={{ once: true, margin: "-10%" }}
       transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
     >
-      <LocaleLink to="/{-$lang}/work/$slug" slug={project.slug} className="group block" data-cursor={d.cta.viewWork.en}>
+      <LocaleLink to="/{-$lang}/work/$slug" slug={project.slug} className="group block rounded-3xl border border-line bg-card p-3 transition-shadow duration-300 hover:shadow-soft">
         <div ref={ref} onPointerMove={onMove} onPointerLeave={reset} className="transition-transform duration-300 ease-out">
-          <ProjectCover project={project} className={large ? "aspect-[4/3] md:aspect-[16/10]" : "aspect-[4/3]"} />
+          <ProjectCover project={project} className={"aspect-[16/11]"} />
         </div>
-        <div className="mt-5 flex items-start justify-between gap-6">
+        <div className="flex items-start justify-between gap-6 px-3 pb-3 pt-5">
           <div>
-            <h3 className="font-display text-xl font-medium transition-colors group-hover:text-ember md:text-2xl">{project.title[locale]}</h3>
+            <h3 className="text-xl font-bold transition-colors group-hover:text-ember md:text-2xl">{project.title[locale]}</h3>
             <p className="mt-1 text-sm text-muted-foreground">{project.discipline[locale]}</p>
           </div>
-          <span className="shrink-0 font-mono text-xs text-muted-foreground">
+          <span className="shrink-0 rounded-lg bg-surface px-2 py-1 text-xs text-muted-foreground">
             {statusLabels[project.status][locale]} · {project.year}
           </span>
         </div>
@@ -73,9 +75,9 @@ export function ProjectCard({ project, large }: { project: Project; large?: bool
 
 export function WorkGrid({ projects }: { projects: Project[] }) {
   return (
-    <div className="grid gap-x-8 gap-y-16 md:grid-cols-2">
+    <div className="grid gap-6 md:grid-cols-2">
       {projects.map((p, i) => (
-        <div key={p.slug} className={cn(i % 2 === 1 && "md:mt-32")}>
+        <div key={p.slug}>
           <ProjectCard project={p} large={i === 0} />
         </div>
       ))}

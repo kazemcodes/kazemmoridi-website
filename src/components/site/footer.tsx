@@ -11,7 +11,7 @@ export function SiteFooter() {
       <Container>
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-5">
-            <p className="font-display text-2xl leading-snug">{d.footer.tagline[locale]}</p>
+            <p className="text-2xl leading-snug">{d.footer.tagline[locale]}</p>
             <a href={`mailto:${contact.email}`} className="mt-6 inline-block text-ember hover:underline" dir="ltr">
               {contact.email}
             </a>
@@ -39,7 +39,7 @@ export function SiteFooter() {
           <span>{contact.location[locale]}</span>
         </div>
       </Container>
-      <div dir="ltr" className="pointer-events-none select-none whitespace-nowrap text-center font-display text-[22vw] font-bold leading-[0.75] text-surface-2" aria-hidden>
+      <div dir="ltr" className="pointer-events-none select-none whitespace-nowrap text-center text-[22vw] font-bold leading-snug text-surface-2" aria-hidden>
         KM Studio
       </div>
     </footer>

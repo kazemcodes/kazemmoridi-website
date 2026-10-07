@@ -31,7 +31,7 @@ export function PricingCalculator() {
                   type === t.id ? "border-ember bg-ember-soft" : "border-line hover:border-foreground/30",
                 )}
               >
-                <div className="font-display text-xl">{t.title[locale]}</div>
+                <div className="text-xl">{t.title[locale]}</div>
                 <div className="mt-2 text-sm text-muted-foreground">{t.desc[locale]}</div>
               </button>
             ))}
@@ -61,11 +61,11 @@ export function PricingCalculator() {
       <aside className="lg:col-span-4">
         <div className="sticky top-28 rounded-[calc(var(--radius)+8px)] border border-line bg-surface p-8">
           <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground">{d.pricing.estimate[locale]}</div>
-          <div className="mt-6 font-display text-5xl font-semibold text-ember">
+          <div className="mt-6 text-5xl font-semibold text-ember">
             {n(result.price.min)}–{n(result.price.max)}
           </div>
           <div className="mt-2 text-sm text-muted-foreground">{d.pricing.currency[locale]}</div>
-          <div className="mt-8 border-t border-line pt-6 font-display text-3xl">
+          <div className="mt-8 border-t border-line pt-6 text-3xl">
             ~{n(result.days)} <span className="text-base text-muted-foreground">{d.pricing.days[locale]}</span>
           </div>
           <p className="mt-6 text-xs leading-relaxed text-muted-foreground">{d.pricing.note[locale]}</p>

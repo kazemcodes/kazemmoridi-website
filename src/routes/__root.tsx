@@ -82,19 +82,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "author", content: "KM Studio" },
-      { name: "theme-color", content: "#171411" },
+      { name: "theme-color", content: "#ffffff" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Manrope:wght@400;500;600&family=Vazirmatn:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap",
-      },
+      { rel: "preload", href: "/fonts/Yekan.woff2", as: "font", type: "font/woff2", crossOrigin: "anonymous" },
     ],
   }),
   shellComponent: RootShell,

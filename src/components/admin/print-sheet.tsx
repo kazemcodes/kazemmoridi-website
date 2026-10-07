@@ -18,7 +18,7 @@ export function PrintSheet({ back, children }: { back: { to: string; label: stri
       <div className="mx-auto min-h-[297mm] w-full max-w-[210mm] bg-paper p-[14mm] text-paper-ink shadow-ember print:shadow-none">
         <header className="mb-8 flex items-start justify-between border-b-2 border-ember pb-6">
           <div>
-            <div className="font-display text-2xl font-bold">{profile?.brandName ?? "KM Studio"}</div>
+            <div className="text-2xl font-bold">{profile?.brandName ?? "KM Studio"}</div>
             <div className="mt-1 text-xs opacity-70">{profile?.address}</div>
           </div>
           <div className="text-start text-xs leading-6 opacity-80" dir="ltr">

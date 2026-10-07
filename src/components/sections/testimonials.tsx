@@ -25,7 +25,7 @@ export function Testimonials() {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.6 }}
           >
-            <blockquote className="font-display text-2xl leading-snug md:text-4xl">
+            <blockquote className="text-2xl leading-snug md:text-4xl">
               <span className="text-ember">“</span>
               {t.quote[locale]}
               <span className="text-ember">”</span>

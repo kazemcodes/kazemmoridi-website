@@ -143,7 +143,7 @@ function Row({ label, value, strong }: { label: string; value: string; strong?: 
   return (
     <div className="flex justify-between">
       <span className="text-muted-foreground">{label}</span>
-      <span className={strong ? "font-display text-xl text-ember" : "font-mono"}>{value}</span>
+      <span className={strong ? "text-xl text-ember" : "font-mono"}>{value}</span>
     </div>
   );
 }

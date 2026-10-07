@@ -8,8 +8,18 @@ export function Container({ className, ...props }: HTMLAttributes<HTMLDivElement
 
 export function Eyebrow({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <span className={cn("inline-flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground rtl:font-sans rtl:tracking-normal", className)}>
-      <span className="h-1.5 w-1.5 rounded-full bg-ember" aria-hidden />
+    <span className={cn("inline-flex items-center gap-2 text-sm font-bold text-ember", className)}>
+      <span className="h-1.5 w-6 rounded-full bg-ember" aria-hidden />
+      {children}
+    </span>
+  );
+}
+
+/** Rounded gray pill label, optionally with a pulsing brand dot. */
+export function Chip({ children, pulse, className }: { children: ReactNode; pulse?: boolean; className?: string }) {
+  return (
+    <span className={cn("inline-flex w-fit items-center gap-2 rounded-full bg-surface px-4 py-2 text-xs font-bold text-muted-foreground", className)}>
+      <span className={cn("h-2 w-2 rounded-full bg-ember", pulse && "animate-pulse")} aria-hidden />
       {children}
     </span>
   );
@@ -23,22 +33,21 @@ interface SectionProps extends Omit<HTMLAttributes<HTMLElement>, "title"> {
 }
 
 /** Page section with an optional numbered editorial header. */
-export function Section({ index, eyebrow, title, aside, className, children, ...props }: SectionProps) {
+export function Section({ index: _index, eyebrow, title, aside, className, children, ...props }: SectionProps) {
   return (
-    <section className={cn("py-24 md:py-36", className)} {...props}>
+    <section className={cn("py-20 md:py-28", className)} {...props}>
       <Container>
         {(eyebrow || title) && (
-          <header className="mb-14 grid gap-6 border-t border-line pt-6 md:mb-20 md:grid-cols-12">
-            <div className="flex items-center gap-4 md:col-span-3">
-              {index && <span className="font-mono text-xs text-ember">{index}</span>}
+          <header className="mb-12 flex flex-wrap items-end justify-between gap-6 md:mb-16">
+            <div className="flex flex-col gap-4">
               {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+              {title && (
+                <Reveal>
+                  <h2 className="max-w-3xl text-3xl font-bold leading-snug md:text-5xl">{title}</h2>
+                </Reveal>
+              )}
             </div>
-            {title && (
-              <Reveal className="md:col-span-7">
-                <h2 className="font-display text-4xl font-semibold leading-[1.05] md:text-6xl">{title}</h2>
-              </Reveal>
-            )}
-            {aside && <div className="md:col-span-2 md:justify-self-end">{aside}</div>}
+            {aside && <div>{aside}</div>}
           </header>
         )}
         {children}
@@ -49,12 +58,12 @@ export function Section({ index, eyebrow, title, aside, className, children, ...
 
 export function PageHero({ eyebrow, title, lede }: { eyebrow: ReactNode; title: ReactNode; lede?: ReactNode }) {
   return (
-    <section className="relative overflow-hidden pb-16 pt-40 md:pb-24 md:pt-52">
-      <div className="ember-glow pointer-events-none absolute -top-40 start-1/2 h-[600px] w-[900px] -translate-x-1/2 opacity-60 rtl:translate-x-1/2" aria-hidden />
+    <section className="relative overflow-hidden border-b border-line bg-surface pb-16 pt-36 md:pb-20 md:pt-44">
+      <div className="pointer-events-none absolute -top-32 end-0 h-[420px] w-[420px] rounded-full bg-ember-soft blur-3xl" aria-hidden />
       <Container className="relative">
-        <Eyebrow>{eyebrow}</Eyebrow>
+        <Chip>{eyebrow}</Chip>
         <Reveal>
-          <h1 className="mt-8 max-w-5xl font-display text-5xl font-semibold leading-[1.02] md:text-8xl">{title}</h1>
+          <h1 className="mt-6 max-w-4xl text-4xl font-bold leading-snug md:text-6xl">{title}</h1>
         </Reveal>
         {lede && (
           <Reveal delay={0.1}>
@@ -68,7 +77,7 @@ export function PageHero({ eyebrow, title, lede }: { eyebrow: ReactNode; title: 
 
 export function Tag({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-flex items-center rounded-full border border-line px-3 py-1 font-mono text-[11px] text-muted-foreground">
+    <span className="inline-flex items-center rounded-lg bg-surface px-3 py-1 text-xs text-muted-foreground">
       {children}
     </span>
   );

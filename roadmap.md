@@ -3,4 +3,4 @@
 - [x] Clean architecture: domain ports + Supabase adapters
 - [x] Admin panel UI (messages, clients, invoices + print, letters + print, settings)
 - [ ] Connect existing Supabase — blocked: needs project URL + anon key, and running supabase/km-studio-security.sql
-- [ ] GitHub branch `redesign-km-studio` + PR — blocked: user must connect this project to GitHub
+- [x] GitHub PR #1 opened on redesign-km-studio

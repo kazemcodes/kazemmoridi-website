@@ -38,13 +38,13 @@ function AboutPage() {
           {about.principles.map((pr, i) => (
             <Reveal key={i} delay={i * 0.08} className="bg-background p-8 md:p-10">
               <span className="font-mono text-xs text-ember">{locale === "fa" ? toFaDigits(`0${i + 1}`) : `0${i + 1}`}</span>
-              <h3 className="mt-6 font-display text-2xl">{pr.title[locale]}</h3>
+              <h3 className="mt-6 text-2xl">{pr.title[locale]}</h3>
               <p className="mt-3 text-muted-foreground">{pr.body[locale]}</p>
             </Reveal>
           ))}
         </div>
       </Section>
-      <div className="border-y border-line py-6 font-display text-4xl text-muted-foreground md:text-6xl">
+      <div className="border-y border-line py-6 text-4xl text-muted-foreground md:text-6xl">
         <Marquee items={capabilities} />
       </div>
       <StatsBand />

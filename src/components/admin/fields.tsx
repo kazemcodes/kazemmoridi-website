@@ -52,7 +52,7 @@ export function Panel({ title, actions, children, className }: { title?: ReactNo
     <section className={cn("rounded-2xl border border-line bg-surface p-5 md:p-6", className)}>
       {(title || actions) && (
         <header className="mb-5 flex items-center justify-between gap-4">
-          {title && <h2 className="font-display text-lg">{title}</h2>}
+          {title && <h2 className="text-lg">{title}</h2>}
           {actions}
         </header>
       )}
@@ -64,7 +64,7 @@ export function Panel({ title, actions, children, className }: { title?: ReactNo
 export function PageTitle({ title, actions }: { title: string; actions?: ReactNode }) {
   return (
     <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
-      <h1 className="font-display text-3xl font-semibold">{title}</h1>
+      <h1 className="text-3xl font-semibold">{title}</h1>
       {actions}
     </div>
   );

@@ -28,6 +28,11 @@ export const dictionary = {
       en: "KM Studio designs and engineers stores, platforms and apps for businesses, schools and startups — lean, secure and loading in under two seconds.",
     },
     scroll: { fa: "اسکرول کنید", en: "Scroll" },
+    estimate: { fa: "برآورد آنلاین هزینه", en: "Instant estimate" },
+    viewAll: { fa: "مشاهده نمونه‌کارها", en: "See our work" },
+    statValue: { fa: "٪۱۰۰", en: "100%" },
+    statLabel: { fa: "امتیاز عملکرد لایت‌هاوس", en: "Lighthouse performance" },
+    stack: { fa: "فناوری‌هایی که با آن‌ها می‌سازیم", en: "Built with" },
   },
   sections: {
     services: { fa: "آنچه می‌سازیم", en: "What we build" },

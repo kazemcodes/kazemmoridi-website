@@ -31,11 +31,11 @@ export function ProcessTimeline({ compact }: { compact?: boolean }) {
             className="relative grid gap-4 pb-16 ps-10 md:grid-cols-4 md:ps-0"
           >
             <span className="absolute start-1.5 top-2 h-3 w-3 rounded-full border-2 border-ember bg-background md:start-[calc(25%-6px)]" />
-            <span className="font-display text-5xl font-semibold text-muted-foreground/50 md:pe-12 md:text-end">
+            <span className="text-5xl font-semibold text-muted-foreground/50 md:pe-12 md:text-end">
               {locale === "fa" ? toFaDigits(n) : n}
             </span>
             <div className="md:col-span-3 md:ps-14">
-              <h3 className="font-display text-2xl font-medium md:text-4xl">{step.title[locale]}</h3>
+              <h3 className="text-2xl font-medium md:text-4xl">{step.title[locale]}</h3>
               <p className="mt-4 max-w-2xl leading-relaxed text-muted-foreground">{step.body[locale]}</p>
               {!compact && (
                 <div className="mt-5 flex flex-wrap gap-2">

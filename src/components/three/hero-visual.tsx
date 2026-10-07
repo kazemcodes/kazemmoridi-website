@@ -7,7 +7,7 @@ const HeroScene = lazy(() => import("./hero-scene"));
 function StaticOrb() {
   return (
     <div className="absolute inset-0 flex items-center justify-center" aria-hidden>
-      <div className="h-[46vmin] w-[46vmin] rounded-full bg-ember opacity-80 blur-[2px] shadow-ember" />
+      <div className="h-1/2 w-1/2 rounded-[40%_60%_70%_30%/40%_50%_60%_50%] bg-ember shadow-ember" />
     </div>
   );
 }

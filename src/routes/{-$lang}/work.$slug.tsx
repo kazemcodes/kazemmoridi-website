@@ -30,7 +30,7 @@ export const Route = createFileRoute("/{-$lang}/work/$slug")({
     };
   },
   notFoundComponent: () => (
-    <Container className="py-48 text-center font-display text-4xl">404</Container>
+    <Container className="py-48 text-center text-4xl">404</Container>
   ),
   component: ProjectPage,
 });
@@ -46,7 +46,7 @@ function ProjectPage() {
         <Container>
           <Eyebrow>{p.discipline[locale]} · {p.year}</Eyebrow>
           <Reveal>
-            <h1 className="mt-8 max-w-5xl font-display text-5xl font-semibold leading-[1.02] md:text-8xl">{p.title[locale]}</h1>
+            <h1 className="mt-8 max-w-5xl text-5xl font-semibold leading-snug md:text-8xl">{p.title[locale]}</h1>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mt-8 max-w-3xl text-xl leading-relaxed text-muted-foreground">{p.tagline[locale]}</p>
@@ -89,7 +89,7 @@ function ProjectPage() {
               <div className="mt-12 grid grid-cols-3 gap-6">
                 {p.stats[locale].map((s) => (
                   <div key={s.label}>
-                    <div className="font-display text-4xl text-ember">{s.value}</div>
+                    <div className="text-4xl text-ember">{s.value}</div>
                     <div className="mt-1 text-sm text-muted-foreground">{s.label}</div>
                   </div>
                 ))}

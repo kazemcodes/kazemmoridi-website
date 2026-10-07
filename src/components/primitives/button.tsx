@@ -4,19 +4,19 @@ import { forwardRef, type ButtonHTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
 export const studioButton = cva(
-  "group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-full font-medium transition-[background,color,box-shadow,transform] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+  "group relative inline-flex items-center justify-center gap-3 rounded-2xl font-bold transition-[background,color,box-shadow,transform,border-color] duration-200 hover:-translate-y-0.5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
-        ember: "bg-ember text-primary-foreground hover:shadow-ember",
-        bone: "bg-bone text-background hover:bg-ember",
-        line: "border border-line text-foreground hover:border-ember hover:text-ember",
-        ghost: "text-muted-foreground hover:text-foreground",
+        ember: "bg-ember text-primary-foreground shadow-ember hover:brightness-95",
+        bone: "bg-foreground text-background shadow-soft hover:bg-foreground/90",
+        line: "border-2 border-line bg-background text-foreground hover:border-ember/40",
+        ghost: "text-muted-foreground hover:text-ember",
       },
       size: {
-        sm: "h-9 px-4 text-sm",
+        sm: "h-10 rounded-xl px-5 text-sm",
         md: "h-12 px-6 text-sm",
-        lg: "h-16 px-8 text-base",
+        lg: "h-14 px-8 text-lg",
       },
     },
     defaultVariants: { variant: "ember", size: "md" },

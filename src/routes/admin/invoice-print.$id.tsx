@@ -17,7 +17,7 @@ function InvoicePrint() {
       {(profile) => (
         <div className="text-sm">
           <div className="mb-6 flex items-end justify-between">
-            <h1 className="font-display text-xl font-bold">{invoiceType[inv.type]}</h1>
+            <h1 className="text-xl font-bold">{invoiceType[inv.type]}</h1>
             <div className="text-xs leading-6">
               <div>شماره: {inv.invoiceNumber}</div>
               <div>تاریخ: {inv.issueDate}</div>

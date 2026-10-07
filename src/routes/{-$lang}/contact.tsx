@@ -30,11 +30,11 @@ function ContactPage() {
           <aside className="space-y-10 md:col-span-4 md:col-start-9">
             <div>
               <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground">Email</div>
-              <a href={`mailto:${contact.email}`} className="mt-2 block font-display text-xl hover:text-ember" dir="ltr">{contact.email}</a>
+              <a href={`mailto:${contact.email}`} className="mt-2 block text-xl hover:text-ember" dir="ltr">{contact.email}</a>
             </div>
             <div>
               <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground">Phone</div>
-              <a href={`tel:${contact.phone}`} className="mt-2 block font-display text-xl hover:text-ember" dir="ltr">{contact.phoneDisplay[locale]}</a>
+              <a href={`tel:${contact.phone}`} className="mt-2 block text-xl hover:text-ember" dir="ltr">{contact.phoneDisplay[locale]}</a>
             </div>
             <div>
               <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground">{locale === "fa" ? "ساعت کاری" : "Hours"}</div>

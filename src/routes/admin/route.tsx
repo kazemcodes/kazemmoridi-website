@@ -52,7 +52,7 @@ function SignIn() {
   };
   return (
     <Centered>
-      <h1 className="mb-6 font-display text-2xl">ورود به پنل مدیریت</h1>
+      <h1 className="mb-6 text-2xl">ورود به پنل مدیریت</h1>
       <form onSubmit={onSubmit} className="space-y-4">
         <TextField label="ایمیل" name="email" type="email" required dir="ltr" autoComplete="email" />
         <TextField label="رمز عبور" name="password" type="password" required dir="ltr" autoComplete="current-password" />
@@ -72,7 +72,7 @@ function AdminLayout() {
   if (session.status === "unconfigured")
     return (
       <Centered>
-        <h1 className="font-display text-xl">اتصال به Supabase تنظیم نشده</h1>
+        <h1 className="text-xl">اتصال به Supabase تنظیم نشده</h1>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
           مقادیر VITE_SUPABASE_URL و VITE_SUPABASE_ANON_KEY پروژه Supabase خود را اضافه کنید و فایل supabase/km-studio-security.sql را اجرا کنید.
         </p>
@@ -82,7 +82,7 @@ function AdminLayout() {
   if (session.status === "forbidden")
     return (
       <Centered>
-        <h1 className="font-display text-xl">دسترسی مجاز نیست</h1>
+        <h1 className="text-xl">دسترسی مجاز نیست</h1>
         <p className="mt-3 text-sm text-muted-foreground" dir="ltr">{session.user.email}</p>
         <p className="mt-2 text-sm text-muted-foreground">این حساب در جدول admins ثبت نشده است.</p>
         <StudioButton variant="line" className="mt-6" onClick={() => getBackend().auth.signOut()}>خروج</StudioButton>

@@ -27,7 +27,7 @@ export function ServicesList({ services, defaultOpen = 0 }: { services: Service[
               </span>
               <span
                 className={cn(
-                  "col-span-9 font-display text-2xl font-medium transition-colors duration-300 md:col-span-8 md:text-5xl",
+                  "col-span-9 text-2xl font-medium transition-colors duration-300 md:col-span-8 md:text-5xl",
                   active ? "text-foreground" : "text-muted-foreground",
                 )}
               >
